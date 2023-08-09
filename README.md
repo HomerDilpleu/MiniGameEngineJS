@@ -16,7 +16,7 @@ MGE is plain javascript. To use it, just import the latest version of the minifi
 <script src="mge_V0.0.1.min.js"></script>
 ```
 
-For developping and debugging, it is possible to use the non minified version also vailable in the dist directory:
+For developping and debugging, it is possible to use the non minified version also available in the dist directory:
 
 ```
 <script src="mge_V0.0.1.js"></script>
@@ -43,7 +43,7 @@ let myScene = {
 }
 ```
 
-At the beginning of the game, a scene must be started as follows: 
+At the begining of the game, a scene must be started as follows: 
 ```
 mge.game.start(myScene)
 ```
@@ -81,7 +81,7 @@ mySprite.draw()
 ```
 
 Other interesting attributes of a sprite are:
-* width and height to define the original size of the image and the collision box
+* width and height to define the collision box
 * scaleX and scaleY to resize the sprite
 * isVisible to hide or show the sprite
 * isTouched and isCliked to detect interactions with the mouse
@@ -135,7 +135,7 @@ let mouseY = mge.mouse.y
 
 ## Synthetizer
 MGE provides a mini synthetizer to create sounds.
-This synthetizer is composed of one oscillator (sine, square, triangle, sawtooth or white noise), one filter (low pass or high pass) and several adsr envelopes (volume, filter frequency, filter Q, detune,...).
+This synthetizer is composed of one oscillator (sine, square, triangle, sawtooth or white noise), one filter (low pass or high pass) and several adsr envelops (volume, filter frequency, filter Q, detune,...).
 
 The synthetizer settings must be declared in an object as follows.
 
@@ -159,7 +159,7 @@ let mySynth = {
 }
 ```
 
-To play the sound of a synthetiseur, the **mge.audio.playSound** function must be called with the following parameter:
+To play the sound of a synthetizer, the **mge.audio.playSound** function must be called with the following parameters:
 * synthezer configuration
 * frequency
 * starttime
@@ -180,12 +180,12 @@ It means all the tracks do **NOT** need to have the same number of bars.
 For example, the bass track could be a repeated 4 bars pattern and the lead guitare track could be a 16 bars melody.
 
 ### Bars
-A bar is has 4 beats. Technically, a bar is an array that provides, the list of notes to be played and their duration:
+A bar is has 4 beats. Technically, a bar is an array that provides the list of notes to be played and their duration:
 
 ```
 // Create 3 bars
 let myBar1 = ['C2',4]                                 // Whole C (2nd octave)
-let myBar2 = ['C1',2,'G1',2]                          // Half G (1st octave) and 1 half G (1st octave)
+let myBar2 = ['C1',2,'G1',2]                          // Half G (1st octave) and half G (1st octave)
 let myBar3 = ['C4',1.5,'Eb4',0.5,'G4',1,'Bb4',1]      // Dotted quarter C4, eighth Eb4, quarter G4 and quarter Bb4 
 
 // Create the list of bars of the track
@@ -203,7 +203,7 @@ This play function must have the following parameters:
 * duration
 * volume
 
-The easiest way to create is tu use the MGE synthetizer.
+The easiest way to create an instrument is to use the MGE synthetizer.
 Example of a simple "retro gaming" instrument:
 
 ```
@@ -238,7 +238,7 @@ mge.sequencer.start()           // Starts playing all the tracks
 ```
 
 ## Examples
-Some simple examples can be found in the "examples" floder.
+Some simple examples can be found in the "examples" folder.
 
 
 ## Documentation
