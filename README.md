@@ -240,9 +240,6 @@ mge.sequencer.start()           // Starts playing all the tracks
 ## Examples
 Some simple examples can be found in the "examples" folder.
 
-## Contact
-homer.dilpleu@yahoo.com
-
 ## Documentation
 
 ### mge.audio
@@ -335,3 +332,5 @@ let mySprite = mge.game.createSprite()
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
 * listCollisionsWithClones(_sprite): checks if the sprite is colliding with clones of the specified sprite. Returns an array of clones
 
+# Contact
+homer.dilpleu@yahoo.com
