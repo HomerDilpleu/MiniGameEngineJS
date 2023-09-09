@@ -240,6 +240,8 @@ mge.sequencer.start()           // Starts playing all the tracks
 ## Examples
 Some simple examples can be found in the "examples" folder.
 
+## Contact
+homer.dilpleu@yahoo.com
 
 ## Documentation
 
