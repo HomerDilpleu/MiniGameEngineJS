@@ -9,6 +9,8 @@ The objective is to create a **minimalist and easy to use** engine for simple 2D
 * Synthetizer
 * Audio sequencer
 
+In addition, since 2024, some extensions of the core engine have been added as separate modules. You can check in **src/extensions** directory
+
 # Installation
 MGE is plain javascript. To use it, just import the latest version of the minified distribution (mge_Vx.x.x.min.js) available in the dist directory:
 
