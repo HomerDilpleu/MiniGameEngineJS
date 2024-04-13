@@ -74,6 +74,7 @@ The list of draw commands is represented by an array which size depends on the c
 * Quadratic curve: ['Q', controlPointx, controlPointy, pointx, pointy]
 * Bezier curve: ['B', controlPoint1x, controlPoint1y, controlPoint2x, controlPoint2y, pointx, pointy]
 * Circle: ['C', centerX, centerY, radius]
+* Ellipse: ['E', centerX, centerY, radius1, radius2, angle]
 * Rectangle: ['R', topLeftX, topLeftY, width, height]
 
 Example of complete path commands

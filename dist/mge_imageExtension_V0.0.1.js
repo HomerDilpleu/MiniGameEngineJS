@@ -168,15 +168,11 @@ mge._extensionImage._imageObject._load = function() {
             }
             // Rectangle
             else if (_cmd[0] == 'R') {
-                let _x = _cmd[1]*_scale
-                let _y = _cmd[2]*_scale
-                let _w = _cmd[3]*_scale
-                let _h = _cmd[4]*_scale
-                _ctx.moveTo(_x,_y)
-                _ctx.lineTo(_x+_w,_y)
-                _ctx.lineTo(_x+_w,_y+_h)
-                _ctx.lineTo(_x,_y+_h)
-                _ctx.lineTo(_x,_y)
+                _ctx.rect(_cmd[1]*_scale,_cmd[2]*_scale,_cmd[3]*_scale,_cmd[4]*_scale)
+            }
+            // Elipse
+            else if (_cmd[0] == 'E') {
+                _ctx.ellipse(_cmd[1]*_scale,_cmd[2]*_scale,_cmd[3]*_scale,_cmd[4]*_scale,_cmd[5],0,2 * Math.PI)
             }
         })
 
