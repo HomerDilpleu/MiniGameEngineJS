@@ -25,7 +25,7 @@ mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime
         for (let i = 0; i < buffer.length; i++) {
             noiseOutput[i] = Math.random() * 2 - 1
         }
-        osc.buffer = buffer
+        _osc.buffer = buffer
     } else {
         _osc = _context.createOscillator()
         _osc.type = _oscType

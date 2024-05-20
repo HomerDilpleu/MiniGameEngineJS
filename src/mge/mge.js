@@ -1,6 +1,6 @@
 const mge = {
     TITLE:'Mini Game Engine',
-    VERSION:'V0.0.1',
+    VERSION:'V1.0.0',
 
     // Libraries
     _audio:{},
