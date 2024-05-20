@@ -1,0 +1,10 @@
+////////////////////////////////////////
+// Add the song extension to mge
+////////////////////////////////////////
+mge._extensionSong = {
+    _songs:{
+        _list:[]
+    },
+    _songObject:{
+    }
+}
