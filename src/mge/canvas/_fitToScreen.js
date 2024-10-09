@@ -14,7 +14,6 @@ mge._canvas._fitToScreen = function() {
     let _scale = Math.min(_scaleX, _scaleY)
 
     // Modify the canvas style
-    _HtmlCanvas.style.transformOrigin = '0 0'
     _HtmlCanvas.style.transform = 'scale(' + _scale + ')'
     _HtmlCanvas.display = 'block'
 }
