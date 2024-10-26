@@ -327,12 +327,10 @@ let mySprite = mge.game.createSprite()
 * isClicked (read only): boolean that indicates if the sprite is clicked
 #### -> Methods
 * draw(): draw the sprite on the canvas (manages resizing, positionning, bundaries drawing and visibility)
-* isColliding(_spriteToCheck): returns a boolean that indicates if the sprite is colling with the sprcified sprite (box detection)
 * cloneCreate(): creates a clone of the sprite
 * cloneDelete(): deletes itself as clone
 * cloneDeleteAll(): deletes all the clones of the sprite
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
-* listCollisionsWithClones(_sprite): checks if the sprite is colliding with clones of the specified sprite. Returns an array of clones
 
 # Contact
 homer.dilpleu@yahoo.com
