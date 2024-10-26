@@ -9,3 +9,4 @@ Fix a bug on the "noise" genertor that was not working
 # V1.1.0
 In progress
 Fix a bug on fit to screen
+Remove clone collision functions
