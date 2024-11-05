@@ -108,7 +108,6 @@ mySprite.cloneDeleteAll()
 ```
 
 Other interesting features are:
-* the capacity to detect collisions between a sprite and the clones of another sprite: mySprite.listCollisionsWithClones (clonedSprite)
 * the capacity to execute, for each clone, a given function:     mySprite.cloneExecuteForEach('functionToExecute')
 
 ## User input
