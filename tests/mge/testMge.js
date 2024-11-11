@@ -56,6 +56,29 @@ spriteTest.drawFunction = function (ctx) {
 }
 
 //////////////////////////
+// AUDIO
+//////////////////////////
+myRetroGameInstrument = {
+  play: function (_frequency, _startTime, _duration, _volume) {
+      let _synthConfig = {oscType:'triangle',
+                          volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: _volume}
+                      }      
+      mge.audio.playSound(_synthConfig, _frequency, _startTime, _duration, _volume)
+  }
+}
+// Create 3 bars
+myBar1 = ['C2',4]                                 // Whole C (2nd octave)
+myBar2 = ['C1',2,'G1',2]                          // Half G (1st octave) and half G (1st octave)
+myBar3 = ['C4',1.5,'Eb4',0.5,'G4',1,'Bb4',1]      // Dotted quarter C4, eighth Eb4, quarter G4 and quarter Bb4 
+// Sequencer
+mge.sequencer.reset()
+mge.sequencer.bpm = 120        
+mge.sequencer.createTrack([myBar1],myRetroGameInstrument,1)
+mge.sequencer.createTrack([myBar2],myRetroGameInstrument,1)
+mge.sequencer.createTrack([myBar3],myRetroGameInstrument,1)
+
+
+//////////////////////////
 // SCENE
 //////////////////////////
 sceneMain={}
@@ -110,6 +133,29 @@ sceneMain.update = function() {
   }
   spriteDebug.text.push('Delete all clones: -')
   if(mge.keyboard.isKeyPressed('-')) {spriteTest.cloneDeleteAll()}
+  spriteDebug.text.push('')
+  spriteDebug.text.push('AUDIO')
+  spriteDebug.text.push('Play sine sound: s')
+  if(mge.keyboard.isKeyPressed('s')) {
+    mge.audio.playSound({oscType:'sine'},440,mge.audio.currentAudioTime,1,1)
+  }
+  spriteDebug.text.push('Play triangle sound: t')
+  if(mge.keyboard.isKeyPressed('t')) {
+    mge.audio.playSound({oscType:'triangle'},440,mge.audio.currentAudioTime,1,1)
+  }
+  spriteDebug.text.push('Play noise sound: n')
+  if(mge.keyboard.isKeyPressed('n')) {
+    mge.audio.playSound({oscType:'noise'},440,mge.audio.currentAudioTime,1,1)
+  }
+  spriteDebug.text.push('Start sequencer: w')
+  if(mge.keyboard.isKeyPressed('w')) {
+    mge.sequencer.stop()
+    mge.sequencer.start()
+  }
+  spriteDebug.text.push('Stop sequencer: x')
+  if(mge.keyboard.isKeyPressed('x')) {
+    mge.sequencer.stop()
+  }
 }
 sceneMain.draw = function() {
   spriteBackground.draw()
