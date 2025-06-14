@@ -291,6 +291,10 @@ Provides access to the mouse input
 * isClicked (Read Only): checks if the mouse has been clicked (boolean)
 * x (Read Only): mouse x position in the canvas
 * y (Read Only): mouse y position in the canvas
+* isDown (Read Only): true if the mouse button is pressed
+* isUp (Read Only): true if the mouse button is not pressed
+* isPressed (Read Only): true if the mouse button has just been pressed 
+* isReleased (Read Only): true if the mouse button has just been released 
 
 -------------------------
 ### mge.sequencer 

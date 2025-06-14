@@ -26,7 +26,7 @@ spriteDebug.fontSize = 14
 spriteDebug.drawFunction = function (ctx) {
   ctx.fillStyle = 'black'
   ctx.font = this.fontSize+'px serif'
-  ctx.textAlign = 'Start'
+  ctx.textAlign = 'start'
   ctx.textBaseline = 'top'
   // Loop on each line to display
   for (let i = 0; i < this.text.length; i++) {
@@ -99,6 +99,10 @@ sceneMain.update = function() {
   spriteDebug.text.push('')
   spriteDebug.text.push('MOUSE')
   spriteDebug.text.push('- mge.mouse.isClicked: ' + mge.mouse.isClicked)
+  spriteDebug.text.push('- mge.mouse.isDown: ' + mge.mouse.isDown)
+  spriteDebug.text.push('- mge.mouse.isUp: ' + mge.mouse.isUp)
+  spriteDebug.text.push('- mge.mouse.isPressed: ' + mge.mouse.isPressed)
+  spriteDebug.text.push('- mge.mouse.isReleased: ' + mge.mouse.isReleased)
   spriteDebug.text.push('- mge.mouse.x: ' + mge.mouse.x)
   spriteDebug.text.push('- mge.mouse.y: ' + mge.mouse.y)
   spriteDebug.text.push('')
