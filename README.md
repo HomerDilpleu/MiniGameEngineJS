@@ -328,6 +328,8 @@ let mySprite = mge.game.createSprite()
 * drawBoundaries: boolean that indicates if the bundaries (collision box) must be displayed. Useful for debugging
 * isTouched (read only): boolean that indicates if the sprite is touched by the mouse
 * isClicked (read only): boolean that indicates if the sprite is clicked
+* isDragged (read only): boolean that indicates if the sprite is currently being dragged
+* isSelected (read only): boolean that indicates if the sprite is currently selected
 #### -> Methods
 * draw(): draw the sprite on the canvas (manages resizing, positionning, bundaries drawing and visibility)
 * cloneCreate(): creates a clone of the sprite
