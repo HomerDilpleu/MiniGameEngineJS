@@ -15,6 +15,10 @@ mge._sprite._create = function(_ctx) {
     this._isVisible = true
     this._drawBoundaries = false
 
+    // Properties for mouse
+    this._dragState = false
+    this._selectState = false
+
     // Clone properties
     this._clonesList = []
     this._cloneIsValid = false

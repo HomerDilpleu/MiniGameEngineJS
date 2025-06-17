@@ -2,7 +2,7 @@
 // Check if the sprite is
 // touch for given x and y
 ///////////////////////////
-mge._sprite._isTouched = function(_xTouched, _yTouched) {
+mge._sprite._isTouched = function() {
 
     // Calculate sprite min and max coordinates
     // based in its width and height
@@ -12,9 +12,10 @@ mge._sprite._isTouched = function(_xTouched, _yTouched) {
     let _yMinSprite = this._y - (this._height / 2) * this._scaleY
 
     // Check if inside
-    if (_xTouched >= _xMinSprite && _xTouched <= _xMaxSprite && _yTouched >= _yMinSprite && _yTouched <= _yMaxSprite) {
+    if (mge._mouse._x >= _xMinSprite && mge._mouse._x <= _xMaxSprite && mge._mouse._y >= _yMinSprite && mge._mouse._y <= _yMaxSprite) {
         return true
     } else {
         return false
     }
 }
+

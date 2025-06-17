@@ -65,13 +65,21 @@ mge._sprite = {
     },
      // is touched by mouse
     get isTouched() {
-        return this._isTouched(mge._mouse._x, mge._mouse._y)
+        return this._isTouched()
     },   
      // is clicked
-     get isClicked() {
-        return this._isClicked(mge._mouse._x, mge._mouse._y, mge._mouse._isClicked)
+    get isClicked() {
+        return this._isClicked() 
     },  
-    
+     // is dragged
+    get isDragged() {
+        return this._isDragged() 
+    },  
+     // is selected
+    get isSelected() {
+        return this._isSelected() 
+    },  
+        
     ////////////////
     // Methods
     ////////////////
