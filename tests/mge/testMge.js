@@ -125,8 +125,6 @@ sceneMain.update = function() {
   spriteDebug.text.push('- spriteTest.isClicked: ' + spriteTest.isClicked)
   spriteDebug.text.push('- spriteTest.isDragged: ' + spriteTest.isDragged)
   spriteDebug.text.push('- spriteTest.isSelected: ' + spriteTest.isSelected)
-  spriteDebug.text.push('- spriteTest.mouseXOffset: ' + spriteTest.mouseXOffset)
-  spriteDebug.text.push('- spriteTest.mouseYOffset: ' + spriteTest.mouseYOffset)
   spriteDebug.text.push('')
   spriteDebug.text.push('Move sprite: arrows')
   if(mge.keyboard.isKeyPressed('ArrowLeft')) {spriteTest.x-=5}
