@@ -102,6 +102,7 @@ sceneMain.update = function() {
   spriteDebug.text.push('- mge.game.height: ' + mge.game.height)
   spriteDebug.text.push('- mge.game.fps: ' + Math.round(mge.game.fps))
   spriteDebug.text.push('- mge.game.clonesNb: ' + mge.game.clonesNb)
+  spriteDebug.text.push('- mge.game.context: ' + mge.game.context)
   spriteDebug.text.push('')
   spriteDebug.text.push('KEYBOARD')
   spriteDebug.text.push('- mge.keyboard.keysPressed : ' + mge.keyboard.keysPressed)

@@ -27,6 +27,10 @@ mge.game = {
     get clonesNb() {
         return mge._game._getClonesNb()
     },
+    // Access to the game canvas
+    get context() {
+        return mge._canvas._renderContext
+    },
 
     ////////////////
     // Methods

@@ -271,6 +271,7 @@ Provides access to the MGE game
 * height: game canvas height
 * fps (Read Only): current FPS (Frames per seconds) of the game loop
 * clonesNb (Read Only): total number of sprite clones currently existing
+* context (Read Only): reference to game canvas context
 #### -> Methods
 * start(_scene): starts the game and starts the _scene
 * changeScene(_scene): changes the current _scene 
