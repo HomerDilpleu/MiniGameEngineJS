@@ -45,7 +45,11 @@ spriteTest.y=100
 spriteTest.drawBoundaries=true
 //
 spriteTest.drawFunction = function (ctx) {
-  if(this.isDragged) {this.x = mge.mouse.x; this.y = mge.mouse.y}
+  if (mge.mouse.isPressed && this.isTouched) {
+    this.xoffset = mge._mouse._x - this._x 
+    this.yoffset = mge._mouse._y - this._y 
+  }
+  if(this.isDragged) {this.x = mge.mouse.x - this.xoffset; this.y = mge.mouse.y - this.yoffset}
   ctx.fillStyle = 'Salmon'
   ctx.fillRect(0,0,100,100)
   ctx.fillStyle = 'DarkSalmon'
@@ -121,6 +125,8 @@ sceneMain.update = function() {
   spriteDebug.text.push('- spriteTest.isClicked: ' + spriteTest.isClicked)
   spriteDebug.text.push('- spriteTest.isDragged: ' + spriteTest.isDragged)
   spriteDebug.text.push('- spriteTest.isSelected: ' + spriteTest.isSelected)
+  spriteDebug.text.push('- spriteTest.mouseXOffset: ' + spriteTest.mouseXOffset)
+  spriteDebug.text.push('- spriteTest.mouseYOffset: ' + spriteTest.mouseYOffset)
   spriteDebug.text.push('')
   spriteDebug.text.push('Move sprite: arrows')
   if(mge.keyboard.isKeyPressed('ArrowLeft')) {spriteTest.x-=5}

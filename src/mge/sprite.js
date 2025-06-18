@@ -63,19 +63,19 @@ mge._sprite = {
     set drawBoundaries(_value) {
         this._drawBoundaries = _value
     },
-     // is touched by mouse
+    // is touched by mouse
     get isTouched() {
         return this._isTouched()
     },   
-     // is clicked
+    // is clicked
     get isClicked() {
         return this._isClicked() 
     },  
-     // is dragged
+    // is dragged
     get isDragged() {
         return this._isDragged() 
     },  
-     // is selected
+    // is selected
     get isSelected() {
         return this._isSelected() 
     },  
