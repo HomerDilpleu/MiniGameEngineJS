@@ -22,43 +22,48 @@ mge._loop._tick = function () {
     _loop._elapsedTick = _loop._currentTick - _loop._lastTick
     _loop._fps = 1 / (_loop._elapsedTick / 1000)
 
-    // Get mouse & keyboard information
-    _mouse._update() 
-    _keyboard._update() 
+    // Fixed time step 16.67ms (60 fps)
+    if (_loop._elapsedTick >= 16) {
 
-    // Check if the scene must change
-    if (_game._curScene != _game._nextScene) {
-        // Update curScene, reset controls and launch the start function of the new scene
-        _game._curScene = _game._nextScene
-        _mouse._reset()
-        _keyboard._reset()
-        _game._curScene.start()
+        // Get mouse & keyboard information
+        _mouse._update() 
+        _keyboard._update() 
+
+        // Check if the scene must change
+        if (_game._curScene != _game._nextScene) {
+            // Update curScene, reset controls and launch the start function of the new scene
+            _game._curScene = _game._nextScene
+            _mouse._reset()
+            _keyboard._reset()
+            _game._curScene.start()
+        }
+
+        // Call update function
+        _game._curScene.update()
+
+        // Clean the clone list of each sprite
+        _spritesList.forEach(_sprite => {
+            _sprite._cloneCleanList()
+        })
+
+        // Clear screen
+        _renderContext.clearRect(0,0,_renderCanvas.width,_renderCanvas.height)
+
+        // Call draw function
+        _game._curScene.draw()
+
+        // Scale the game render canvas in order to fit window size
+        _canvas._fitToScreen()
+
+        // Call audio sequencer
+        _sequencer._play()
+        
+        // Update tick timestamp
+        _loop._lastTick = _loop._currentTick
+
     }
 
-    // Call update function
-    _game._curScene.update()
-
-    // Clean the clone list of each sprite
-    _spritesList.forEach(_sprite => {
-        _sprite._cloneCleanList()
-    })
-
-    // Clear screen
-    _renderContext.clearRect(0,0,_renderCanvas.width,_renderCanvas.height)
-
-    // Call draw function
-    _game._curScene.draw()
-
-    // Scale the game render canvas in order to fit window size
-    _canvas._fitToScreen()
-
-    // Call audio sequencer
-    _sequencer._play()
-    
-    // Update tick timestamp
-    _loop._lastTick = _loop._currentTick
-
-    // Loop if status is running
+    // Loop 
     requestAnimationFrame(_loop._tick)
 }
 
