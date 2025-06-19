@@ -59,8 +59,6 @@ mge._loop._tick = function () {
     _loop._lastTick = _loop._currentTick
 
     // Loop if status is running
-    if (_loop._status == 'running') {
-        requestAnimationFrame(_loop._tick)
-    }
+    requestAnimationFrame(_loop._tick)
 }
 
