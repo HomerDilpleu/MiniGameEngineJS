@@ -4,66 +4,53 @@
 
 mge._loop._tick = function () {
 
-    // Dependencies
-    let _canvas = mge._canvas
-    let _game = mge._game
-    let _mouse = mge._mouse
-    let _keyboard = mge._keyboard
-    let _sequencer = mge._sequencer
-
-    // Shortcuts
-    let _renderContext = _canvas._renderContext
-    let _renderCanvas = _canvas._renderCanvas
-    let _loop = mge._loop
-    let _spritesList = _game._spritesList
-
     // Update tick metrics
-    _loop._currentTick = performance.now()
-    _loop._elapsedTick = _loop._currentTick - _loop._lastTick
-    _loop._fps = 1 / (_loop._elapsedTick / 1000)
+    mge._loop._currentTick = performance.now()
+    mge._loop._elapsedTick = mge._loop._currentTick - mge._loop._lastTick
+    mge._loop._fps = 1 / (mge._loop._elapsedTick / 1000)
 
     // Fixed time step 16.67ms (60 fps)
-    if (_loop._elapsedTick >= 16) {
+    if (mge._loop._elapsedTick >= 16) {
 
         // Get mouse & keyboard information
-        _mouse._update() 
-        _keyboard._update() 
+        mge._mouse._update() 
+        mge._keyboard._update() 
 
         // Check if the scene must change
-        if (_game._curScene != _game._nextScene) {
+        if (mge._game._curScene != mge._game._nextScene) {
             // Update curScene, reset controls and launch the start function of the new scene
-            _game._curScene = _game._nextScene
-            _mouse._reset()
-            _keyboard._reset()
-            _game._curScene.start()
+            mge._game._curScene = mge._game._nextScene
+            mge._mouse._reset()
+            mge._keyboard._reset()
+            mge._game._curScene.start()
         }
 
         // Call update function
-        _game._curScene.update()
+        mge._game._curScene.update()
 
         // Clean the clone list of each sprite
-        _spritesList.forEach(_sprite => {
+        mge._game._spritesList.forEach(_sprite => {
             _sprite._cloneCleanList()
         })
 
         // Clear screen
-        _renderContext.clearRect(0,0,_renderCanvas.width,_renderCanvas.height)
+        mge._canvas._renderContext.clearRect(0,0,mge._canvas._renderCanvas.width,mge._canvas._renderCanvas.height)
 
         // Call draw function
-        _game._curScene.draw()
+        mge._game._curScene.draw()
 
         // Scale the game render canvas in order to fit window size
-        _canvas._fitToScreen()
+        mge._canvas._fitToScreen()
 
         // Call audio sequencer
-        _sequencer._play()
+        mge._sequencer._play()
         
         // Update tick timestamp
-        _loop._lastTick = _loop._currentTick
+        mge._loop._lastTick = mge._loop._currentTick
 
     }
 
     // Loop 
-    requestAnimationFrame(_loop._tick)
+    requestAnimationFrame(mge._loop._tick)
 }
 
