@@ -10,9 +10,6 @@ mge._extensionImage._imageObject= {
     set config(_value) {
         this._setConfig(_value)
     },
-    get config() {
-        return this._config
-    },
     // Scale
     set scale(_value) {
         this._setScale(_value)

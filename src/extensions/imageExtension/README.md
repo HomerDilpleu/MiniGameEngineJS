@@ -25,8 +25,7 @@ Example of a basic json structure:
 {"_s":{"_w":200,"_h":100},
  "_p":[{"_fs":["C","#ff0000"],
         "_ss":["#000000","1","round","round"],"_gp":[],
-        "_c":[["M","0","0"],["L","100","100"]],
-        "_t":[8,8,8,"","","","",""]}]}
+        "_c":[["M","0","0"],["L","100","100"]]}]}
 ```
 
 * _s provides the size of the image (_w for width and _h for height)
@@ -82,21 +81,6 @@ Example of complete path commands
 "_c":[["M","50","50"],["Q","75","-35","100","100"]]
 ```
 
-### _t: text style and content
-The text to be rendered is representd by an array of 8 values:
-* positionX
-* positionY
-* fontSize
-* fontAttributes: normal, bold, italic
-* font
-* textAlign
-* textBaseline
-* text to be displayed
-
-Example of complete text definition
-```
-"_t":["20","20","14","normal","Comic Sans","left","top","Hello world"]
-```
 
 ## Create, load and render an image
 The first step consists in creating an image object and defining its json structure.

@@ -1,4 +1,87 @@
+////////////////////////////////////////
+// Add the image extension to mge
+////////////////////////////////////////
+mge._extensionImage = {
+    _images:{
+        _list:[]
+    },
+    _imageObject:{
+    }
+}
 ///////////////////////////
+// Image API
+///////////////////////////
+mge._extensionImage._imageObject= {
+    
+    ////////////////
+    // Properties
+    ////////////////
+    // Config
+    set config(_value) {
+        this._setConfig(_value)
+    },
+    // Scale
+    set scale(_value) {
+        this._setScale(_value)
+    },
+    get scale() {
+        return this._scale
+    },
+    // width and heigh 
+    get width() {
+        return this._config._s._w * this._scale
+    },
+    get height() {
+        return this._config._s._h * this._scale
+    },
+
+    ////////////////
+    // Methods
+    ////////////////
+    load: function() {
+        this._load()
+    },
+
+    draw: function(_ctx) {
+        this._draw(_ctx)
+    }
+}
+///////////////////////////
+// Image API
+///////////////////////////
+mge.image = {
+
+    ////////////////
+    // Properties
+    ////////////////
+
+    ////////////////
+    // Methods
+    ////////////////
+    create: function() {
+        return mge._extensionImage._images._createImage()
+    }
+
+}
+///////////////////////////
+// Load the image in a bitmap
+///////////////////////////
+mge._extensionImage._imageObject._create = function() {
+
+    // Properties
+    this._config={}
+    this._isLoaded=false
+    this._scale=1
+    this._bitmap={}
+
+}///////////////////////////
+// Draw the image to a given canvas
+///////////////////////////
+mge._extensionImage._imageObject._draw = function(_ctx) {
+
+    _ctx.drawImage(this._bitmap,0,0)
+
+}///////////////////////////
 // Load the image in a bitmap
 ///////////////////////////
 mge._extensionImage._imageObject._load = function() {
@@ -102,4 +185,40 @@ mge._extensionImage._imageObject._load = function() {
     // Update status
     this._isLoaded=true
 
+}
+///////////////////////////
+// Change image configuration
+///////////////////////////
+mge._extensionImage._imageObject._setConfig = function(_value) {
+
+    // Change properties
+    this._config = _value
+    this._isLoaded = false
+    this._bitmap = {}
+
+}///////////////////////////
+// Change image scale
+///////////////////////////
+mge._extensionImage._imageObject._setScale = function(_value) {
+
+    // Change properties
+    this._scale = _value
+    this._isLoaded = false
+    this._bitmap = {}
+
+}////////////////////////////////////
+// Create a new image object
+////////////////////////////////////
+
+mge._extensionImage._images._createImage = function () {
+    
+    // Create an image object
+    let _newImage = Object.create(mge._extensionImage._imageObject)
+    _newImage._create()
+
+    // Add it to images list
+    this._list.push(_newImage)
+
+    // Return the image
+    return _newImage
 }
