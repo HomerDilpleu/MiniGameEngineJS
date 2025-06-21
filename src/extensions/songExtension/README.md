@@ -109,7 +109,7 @@ This action creates a new song and add it in the list of songs of the game
 ### -> Methods
 * load(): create the tracks of the song and store the result in an object of the game
 * play(_bpm, _instruments, _mix): play the song at the "_bpm" tempo, using the "_instruments" orchestra with "_mix" volume 
-* mge.loadNextSong: load the "next" song among the list of game songs and provides, as result, the percentage of loaded songs. This method can be used to display a progress bar during the loading process of all songs
+
 
 
 # Contact

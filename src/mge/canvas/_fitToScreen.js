@@ -5,16 +5,12 @@
 ///////////////////////////
 mge._canvas._fitToScreen = function() {
 
-    // Shortcuts
-    let _HtmlCanvas = this._renderCanvas
-
-    // Get scale ratio
-    let _scaleX = (window.innerWidth - 10) / _HtmlCanvas.width
-    let _scaleY = (window.innerHeight - 10) / _HtmlCanvas.height
+     // Get scale ratio
+    let _scaleX = (window.innerWidth - 10) / this._renderCanvas.width
+    let _scaleY = (window.innerHeight - 10) / this._renderCanvas.height
     let _scale = Math.min(_scaleX, _scaleY)
 
     // Modify the canvas style
-    _HtmlCanvas.style.transformOrigin = '0 0'
-    _HtmlCanvas.style.transform = 'scale(' + _scale + ')'
-    _HtmlCanvas.display = 'block'
+    this._renderCanvas.style.transform = 'scale(' + _scale + ')'
+    this._renderCanvas.display = 'block'
 }

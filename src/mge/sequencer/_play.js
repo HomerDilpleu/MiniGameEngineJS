@@ -4,11 +4,8 @@
 ///////////////////////////
 mge._sequencer._play = function() {
 
-    // Alias
-    let _currentAudioTime = mge._audio._audioContext.currentTime
-
     // Play the bar only if is time to schedule it and if sequencer is started
-    if (_currentAudioTime >= this._nextBarTriggerTime && this._status == 'started') {
+    if (mge._audio._audioContext.currentTime >= this._nextBarTriggerTime && this._status == 'started') {
 
         // Play all trakcs
         for (let i=0; i < this._tracks.length; i++) {

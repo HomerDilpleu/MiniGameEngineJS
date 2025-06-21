@@ -3,9 +3,6 @@
 ///////////////////////////
 mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime,_duration,_volume) {
 
-    // Shortcuts
-    let _applyADSR = this._applyADSR
-    let _context = this._audioContext
 
     // Parameters
     let _oscType = _synthConfig.oscType || 'sine'
@@ -19,35 +16,35 @@ mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime
     // Osc
     let _osc = ''
     if (_oscType == 'noise') {
-        _osc = _context.createBufferSource()
-        let buffer = _context.createBuffer(1, _context.sampleRate * (_duration+_volumeADSR.r), _context.sampleRate)
+        _osc = this._audioContext.createBufferSource()
+        let buffer = this._audioContext.createBuffer(1, this._audioContext.sampleRate * (_duration+_volumeADSR.r), this._audioContext.sampleRate)
         let noiseOutput = buffer.getChannelData(0)
         for (let i = 0; i < buffer.length; i++) {
             noiseOutput[i] = Math.random() * 2 - 1
         }
         _osc.buffer = buffer
     } else {
-        _osc = _context.createOscillator()
+        _osc = this._audioContext.createOscillator()
         _osc.type = _oscType
-        _applyADSR(_pitchADSR, _osc.frequency, _startTime, _duration)
-        _applyADSR(_detuneADSR, _osc.detune, _startTime, _duration)
+        this._applyADSR(_pitchADSR, _osc.frequency, _startTime, _duration)
+        this._applyADSR(_detuneADSR, _osc.detune, _startTime, _duration)
     }
     _osc.start(_startTime)
     _osc.stop(_startTime+_duration+_volumeADSR.r)
 
     // Gain ADSR
-    let _oscGainADSR = _context.createGain()
-    _applyADSR(_volumeADSR, _oscGainADSR.gain, _startTime, _duration)
+    let _oscGainADSR = this._audioContext.createGain()
+    this._applyADSR(_volumeADSR, _oscGainADSR.gain, _startTime, _duration)
 
     // Volume
-    let _oscVolume = _context.createGain()
+    let _oscVolume = this._audioContext.createGain()
     _oscVolume.gain.setValueAtTime(mge._audio._volumeToGain(_volume) * 0.04, _startTime)
 
     // Filter
-    let _filter = _context.createBiquadFilter()
+    let _filter = this._audioContext.createBiquadFilter()
     _filter.type = _filterType
-    _applyADSR(_filterFreqADSR, _filter.frequency, _startTime, _duration)
-    _applyADSR(_filterQADSR, _filter.Q, _startTime, _duration)
+    this._applyADSR(_filterFreqADSR, _filter.frequency, _startTime, _duration)
+    this._applyADSR(_filterQADSR, _filter.Q, _startTime, _duration)
 
     // Connections
     _osc.connect(_filter)

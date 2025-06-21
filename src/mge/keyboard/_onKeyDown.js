@@ -3,12 +3,9 @@
 ///////////////////////////
 mge._keyboard._onKeyDown = function(e) {
 
-    // Shortcuts
-    let _key = e.key
-
     // Add _keyPressedDetected array 
-    if (this._keyPressedDetected.indexOf(_key) == -1) {
-        this._keyPressedDetected.push(_key)
+    if (this._keyPressedDetected.indexOf(e.key) == -1) {
+        this._keyPressedDetected.push(e.key)
     }
 
 }

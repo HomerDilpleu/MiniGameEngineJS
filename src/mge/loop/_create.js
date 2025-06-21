@@ -8,7 +8,6 @@ mge._loop._create = function() {
     this._currentTick = 0
     this._elapsedTick = 0
     this._fps = 0
-    this._status = 'stopped'
 
 }
 

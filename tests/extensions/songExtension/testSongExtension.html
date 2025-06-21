@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html id='TestSongExtension' style="height: 100%">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MGE test song extension</title>
+    </head>
+
+    <body style="min-height: 100%;background:#161616;display: flex;align-items: center;justify-content: center;"> 
+        
+        <div id="loading"><font color="white">Loading...</font></div>
+
+        <!-- MGE engine   -->  
+        <script src="../../../dist/mge_V1.1.0.js"></script>
+
+        <!-- Extension   -->  
+        <script src="../../../src/extensions/songExtension/mge.js"></script>
+        <script src="../../../src/extensions/songExtension/api/_songObject.js"></script>
+        <script src="../../../src/extensions/songExtension/api/song.js"></script>
+        <script src="../../../src/extensions/songExtension/songObject/_create.js"></script>
+        <script src="../../../src/extensions/songExtension/songObject/_load.js"></script>
+        <script src="../../../src/extensions/songExtension/songObject/_play.js"></script>
+        <script src="../../../src/extensions/songExtension/songObject/_setConfig.js"></script>
+        <script src="../../../src/extensions/songExtension/songs/_createSong.js"></script>
+
+
+        <!-- Tests  -->  
+        <script src="testSongExtension.js"></script>
+       
+
+    </body>
+
+</html>

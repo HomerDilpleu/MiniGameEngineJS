@@ -108,7 +108,6 @@ mySprite.cloneDeleteAll()
 ```
 
 Other interesting features are:
-* the capacity to detect collisions between a sprite and the clones of another sprite: mySprite.listCollisionsWithClones (clonedSprite)
 * the capacity to execute, for each clone, a given function:     mySprite.cloneExecuteForEach('functionToExecute')
 
 ## User input
@@ -272,6 +271,7 @@ Provides access to the MGE game
 * height: game canvas height
 * fps (Read Only): current FPS (Frames per seconds) of the game loop
 * clonesNb (Read Only): total number of sprite clones currently existing
+* context (Read Only): reference to game canvas context
 #### -> Methods
 * start(_scene): starts the game and starts the _scene
 * changeScene(_scene): changes the current _scene 
@@ -292,6 +292,10 @@ Provides access to the mouse input
 * isClicked (Read Only): checks if the mouse has been clicked (boolean)
 * x (Read Only): mouse x position in the canvas
 * y (Read Only): mouse y position in the canvas
+* isDown (Read Only): true if the mouse button is pressed
+* isUp (Read Only): true if the mouse button is not pressed
+* isPressed (Read Only): true if the mouse button has just been pressed 
+* isReleased (Read Only): true if the mouse button has just been released 
 
 -------------------------
 ### mge.sequencer 
@@ -325,14 +329,14 @@ let mySprite = mge.game.createSprite()
 * drawBoundaries: boolean that indicates if the bundaries (collision box) must be displayed. Useful for debugging
 * isTouched (read only): boolean that indicates if the sprite is touched by the mouse
 * isClicked (read only): boolean that indicates if the sprite is clicked
+* isDragged (read only): boolean that indicates if the sprite is currently being dragged
+* isSelected (read only): boolean that indicates if the sprite is currently selected
 #### -> Methods
 * draw(): draw the sprite on the canvas (manages resizing, positionning, bundaries drawing and visibility)
-* isColliding(_spriteToCheck): returns a boolean that indicates if the sprite is colling with the sprcified sprite (box detection)
 * cloneCreate(): creates a clone of the sprite
 * cloneDelete(): deletes itself as clone
 * cloneDeleteAll(): deletes all the clones of the sprite
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
-* listCollisionsWithClones(_sprite): checks if the sprite is colliding with clones of the specified sprite. Returns an array of clones
 
 # Contact
 homer.dilpleu@yahoo.com

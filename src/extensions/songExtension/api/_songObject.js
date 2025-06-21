@@ -10,9 +10,6 @@ mge._extensionSong._songObject= {
     set config(_value) {
         this._setConfig(_value)
     },
-    get config() {
-        return this._config
-    },
 
     ////////////////
     // Methods

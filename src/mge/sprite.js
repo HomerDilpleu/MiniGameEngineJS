@@ -63,23 +63,28 @@ mge._sprite = {
     set drawBoundaries(_value) {
         this._drawBoundaries = _value
     },
-     // is touched by mouse
+    // is touched by mouse
     get isTouched() {
-        return this._isTouched(mge._mouse._x, mge._mouse._y)
+        return this._isTouched()
     },   
-     // is clicked
-     get isClicked() {
-        return this._isClicked(mge._mouse._x, mge._mouse._y, mge._mouse._isClicked)
+    // is clicked
+    get isClicked() {
+        return this._isClicked() 
     },  
-    
+    // is dragged
+    get isDragged() {
+        return this._isDragged() 
+    },  
+    // is selected
+    get isSelected() {
+        return this._isSelected() 
+    },  
+        
     ////////////////
     // Methods
     ////////////////
     draw : function () {
         this._draw()
-    },
-    isColliding : function(_spriteToCheck) {
-        return this._isColliding(_spriteToCheck)
     },
     cloneCreate : function() {
         return this._cloneCreate()
@@ -92,8 +97,5 @@ mge._sprite = {
     },
     cloneExecuteForEach : function(_method) {
         return this._cloneExecuteForEach(_method)
-    },
-    listCollisionsWithClones : function(_sprite) {
-        return this._listCollisionsWithClones(_sprite)
     }
 }

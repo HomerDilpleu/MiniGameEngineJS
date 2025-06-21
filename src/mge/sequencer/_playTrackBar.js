@@ -3,10 +3,6 @@
 ///////////////////////////
 mge._sequencer._playTrackBar = function(_track, _barNum) {
 
-    // Get instrument information
-    let _instrument = _track._instrument
-    let _volume = _track._volume
-
     // Get the bar to be played
     let _bar = _track._getBar(_barNum)
 
@@ -22,7 +18,7 @@ mge._sequencer._playTrackBar = function(_track, _barNum) {
         let _duration = _bar[i+1] * 60 / this._bpm
 
         // Play the note
-        _instrument.play(_noteFrequency, _curTime, _duration, _volume)
+        _track._instrument.play(_noteFrequency, _curTime, _duration, _track._volume)
 
         // Update current time
         _curTime += _duration
