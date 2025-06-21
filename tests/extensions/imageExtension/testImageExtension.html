@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html id='TestImageExtension' style="height: 100%">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MGE test image extension</title>
+    </head>
+
+    <body style="min-height: 100%;background:#f1ecec;display: flex;align-items: center;justify-content: center;"> 
+        
+        <div id="loading"><font color="white">Loading...</font></div>
+
+        <!-- MGE engine   -->  
+        <script src="../../../dist/mge_V1.1.0.js"></script>
+
+        <!-- Extension   -->  
+        <script src="../../../src/extensions/imageExtension/mge.js"></script>
+        <script src="../../../src/extensions/imageExtension/api/_imageObject.js"></script>
+        <script src="../../../src/extensions/imageExtension/api/image.js"></script>
+        <script src="../../../src/extensions/imageExtension/imageObject/_create.js"></script>
+        <script src="../../../src/extensions/imageExtension/imageObject/_draw.js"></script>
+        <script src="../../../src/extensions/imageExtension/imageObject/_load.js"></script>
+        <script src="../../../src/extensions/imageExtension/imageObject/_setConfig.js"></script>
+        <script src="../../../src/extensions/imageExtension/imageObject/_setScale.js"></script>
+        <script src="../../../src/extensions/imageExtension/images/_createImage.js"></script>
+
+        <!-- Tests  -->  
+        <script src="testImageExtension.js"></script>
+       
+
+    </body>
+
+</html>

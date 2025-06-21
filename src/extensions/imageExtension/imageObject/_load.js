@@ -94,20 +94,6 @@ mge._extensionImage._imageObject._load = function() {
             _ctx.stroke() 
         }
         
-        ////////////////////
-        // Draw text
-        ////////////////////
-        let _txt = _path._t || [0,0,20,'normal','serif','start','alphabetic','']
-        let _fontSize = _txt[2]*_scale
-        _ctx.font = _txt[3] + ' ' + _fontSize.toString() + 'px ' + _txt[4]
-        _ctx.textAlign = _txt[5]
-        _ctx.textBaseline = _txt[6]
-        if (fs[0] != 'N') {
-            _ctx.fillText(_txt[7],_txt[0]*_scale,_txt[1]*_scale)
-        }
-        if (ss[1] > 0) {
-            _ctx.strokeText(_txt[7],_txt[0]*_scale,_txt[1]*_scale)
-        }
     })
 
     // Save canvas content
