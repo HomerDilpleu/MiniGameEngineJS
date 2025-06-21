@@ -46,8 +46,8 @@ spriteTest.drawBoundaries=true
 //
 spriteTest.drawFunction = function (ctx) {
   if (mge.mouse.isPressed && this.isTouched) {
-    this.xoffset = mge._mouse._x - this._x 
-    this.yoffset = mge._mouse._y - this._y 
+    this.xoffset = mge.mouse.x - this.x 
+    this.yoffset = mge.mouse.y - this.y 
   }
   if(this.isDragged) {this.x = mge.mouse.x - this.xoffset; this.y = mge.mouse.y - this.yoffset}
   ctx.fillStyle = 'Salmon'
