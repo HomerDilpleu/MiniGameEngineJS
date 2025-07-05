@@ -73,6 +73,7 @@ stringsToUglify+=['_audioContext','_audioGain']
 # _playSound.js
 stringsToUglify+=['_playSound','_synthConfig','_outputNode','_frequency','_startTime','_duration','_applyADSR','_context','_oscType']
 stringsToUglify+=['_filterType','_volumeADSR','_pitchADSR','_detuneADSR','_filterFreqADSR','_filterQADSR','_oscGainADSR','_oscVolume','_filter','_osc']
+stringsToUglify+=['_reverb','_delay','_feedbackGain']
 # _setVolume.js
 stringsToUglify+=['_setVolume']
 # _volumeToGain.js
@@ -201,7 +202,7 @@ stringsToUglify+=['_start']
 # _stop.js
 stringsToUglify+=['_stop']
 # _track.js
-stringsToUglify+=['_track','_bars','_instrument','_volume','_setVolume','_getBar','_numBar']
+stringsToUglify+=['_track','_bars','_instrument','_volume','_setVolume','_getBar','_numBar','_nbBars']
 # Namespace
 stringsToUglify+=['_sequencer']
 #########################################

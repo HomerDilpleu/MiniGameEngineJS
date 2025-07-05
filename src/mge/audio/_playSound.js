@@ -12,6 +12,7 @@ mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime
     let _detuneADSR = _synthConfig.detuneADSR || {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0}
     let _filterFreqADSR = _synthConfig.filterFreqADSR || {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000}
     let _filterQADSR = _synthConfig.filterQADSR || {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1}
+    let _reverb = _synthConfig.reverb || {delay: 0, feedbackLevel: 0}
 
     // Osc
     let _osc = ''
@@ -46,9 +47,21 @@ mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime
     this._applyADSR(_filterFreqADSR, _filter.frequency, _startTime, _duration)
     this._applyADSR(_filterQADSR, _filter.Q, _startTime, _duration)
 
-    // Connections
+    // Reverb
+    let _delay = new DelayNode(this._audioContext, {delayTime: _reverb.delay})
+    let _feedbackGain = this._audioContext.createGain()
+    _feedbackGain.gain.value = _reverb.feedbackLevel
+
+    // Connections normal oscillator
     _osc.connect(_filter)
     _filter.connect(_oscGainADSR)
     _oscGainADSR.connect(_oscVolume)
     _oscVolume.connect(_outputNode)
+
+    // Connections delay
+    _oscGainADSR.connect(_delay)
+    _delay.connect(_feedbackGain)
+    _feedbackGain.connect(_delay)
+    _delay.connect(_oscVolume)
+    
 }
