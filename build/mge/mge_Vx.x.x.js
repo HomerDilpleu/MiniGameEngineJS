@@ -390,7 +390,7 @@ mge._audio._playSound = function (_synthConfig,_outputNode,_frequency,_startTime
     _oscGainADSR.connect(_delay)
     _delay.connect(_feedbackGain)
     _feedbackGain.connect(_delay)
-    _delay.connect(_oscVolume)
+    _feedbackGain.connect(_oscVolume)
     
 }///////////////////////////
 // Set the general volume
