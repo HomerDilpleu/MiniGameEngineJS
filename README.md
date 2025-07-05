@@ -145,10 +145,11 @@ let mySynth = {
     oscType:'sine',
     filterType: 'lowpass',
     volumeADSR: {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1},
-    pitchADSR: {a:0, d:0, s:1, r:0, minValue:1000, maxValue: 500}
-    detuneADSR: {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0}
-    filterFreqADSR: {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000}
-    filterQADSR: {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1}
+    pitchADSR: {a:0, d:0, s:1, r:0, minValue:1000, maxValue: 500},
+    detuneADSR: {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0},
+    filterFreqADSR: {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000},
+    filterQADSR: {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1},
+    reverb: {delay: 0.5, feedbackLevel: 0.3}
 }   
 ```
 
@@ -258,6 +259,7 @@ Provides access to the audio context and to the built-in synthetizer
         * detuneADSR: ADSR envelop for the detune (default value = {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0})
         * filterFreqADSR: ADSR envelop for the filter frequency (default value = {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000})
         * filterQADSR: ADSR envelop for the filter Q (default value = {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1})
+        * reverb: reverberation effect (default value = {delay: 0, feedbackLevel: 0})
     * _frequency: sound frequency in Hz
     * _startTime: start time (of the audio context)
     * _duration: duration in s

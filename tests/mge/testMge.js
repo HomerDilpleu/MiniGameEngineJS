@@ -164,6 +164,15 @@ sceneMain.update = function() {
   if(mge.keyboard.isKeyPressed('n')) {
     mge.audio.playSound({oscType:'noise'},440,mge.audio.currentAudioTime,1,1)
   }
+  spriteDebug.text.push('Play reverb sound: r')
+  if(mge.keyboard.isKeyPressed('r')) {
+    let oscConfig = {oscType:'sawtooth',
+                      volumeADSR: {a:0.1, d:0.5, s:0.8, r:0.2, minValue:0, maxValue: 1},
+                      filterFreqADSR: {a:5, d:0, s:1, r:0.2, minValue:2000, maxValue: 4000},
+                      reverb: {delay: 0.5, feedbackLevel: 0.3}
+    }
+    mge.audio.playSound(oscConfig,440,mge.audio.currentAudioTime,1,1)
+  }
   spriteDebug.text.push('Start sequencer: w')
   if(mge.keyboard.isKeyPressed('w')) {
     mge.sequencer.stop()
