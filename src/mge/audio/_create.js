@@ -7,6 +7,7 @@ mge._audio._create = function () {
     this._audioContext = ''
     this._audioGain = ''
     this._volume = 1
+    this._preRenderedSounds = new Map()
 
     // Create the audio context, a gain node and connect it to speakers
     this._audioContext = new (window.AudioContext||window.webkitAudioContext)()
