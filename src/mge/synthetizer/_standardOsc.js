@@ -1,7 +1,7 @@
 ///////////////////////////
 // Create a standard osc
 ///////////////////////////
-mge._audio._standardOsc = {
+mge._synth._standardOsc = {
     _type: 'sawtooth', 
     _octave: 0, 
     _volumeADSR: {a:0, d:0, s:0, r:0, minValue: 0, maxValue: 0},
@@ -40,18 +40,18 @@ mge._audio._standardOsc = {
                 _osc.frequency.setValueAtTime(_frequency * 2, _startTime)
             }
             // Detune
-            mge._audio._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
+            mge._synth._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
             // Pitch
-            mge._audio._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
+            mge._synth._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
         }
         // Volume
         let _oscGain = _ctx.createGain()
-        mge._audio._applyADSR (this._volumeADSR, _oscGain.gain, _startTime, _duration)
+        mge._synth._applyADSR (this._volumeADSR, _oscGain.gain, _startTime, _duration)
         // Filter
         let _oscFilter = _ctx.createBiquadFilter()
         _oscFilter.type = this._filterType
         _oscFilter.Q.value = this._filterQ
-        mge._audio._applyADSR (this._filterADSR, _oscFilter.frequency, _startTime, _duration)
+        mge._synth._applyADSR (this._filterADSR, _oscFilter.frequency, _startTime, _duration)
         // Reverb
         let _delay = new DelayNode(_ctx, {delayTime: this._reverb._delay})
         let _feedbackGain = _ctx.createGain()

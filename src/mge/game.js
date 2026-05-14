@@ -43,5 +43,8 @@ mge.game = {
     },
     createSprite: function() {
         return mge._game._createSprite()
+    },
+    createSynthetizer: function (_oscList) {
+        return mge._game._createSynth(_oscList)
     }
 }

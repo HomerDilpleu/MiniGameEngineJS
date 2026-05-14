@@ -2,7 +2,7 @@
 // Apply an ADSR envelopp
 // to a given audio param
 ///////////////////////////
-mge._audio._applyADSR = function (_envelop, _audioParam, _startTime, _duration) {
+mge._synth._applyADSR = function (_envelop, _audioParam, _startTime, _duration) {
 
     // Get parameters
     let a = _envelop.a || 0.0001
