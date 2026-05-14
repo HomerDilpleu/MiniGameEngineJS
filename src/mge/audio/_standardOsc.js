@@ -6,6 +6,7 @@ mge._audio._standardOsc = {
     _octave: 0, 
     _volumeADSR: {a:0, d:0, s:0, r:0, minValue: 0, maxValue: 0},
     _detuneADSR: {a:0, d:0, s:1, r:0, minValue: 0, maxValue: 0},
+    _pitchADSR: {a:0, d:0, s:1, r:0, minValue: 1, maxValue: 1},
     _filterType: 'lowpass', 
     _filterQ:1,
     _filterADSR: {a:0, d:0, s:1, r:0, minValue: 10000, maxValue: 10000},
@@ -40,6 +41,8 @@ mge._audio._standardOsc = {
             }
             // Detune
             mge._audio._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
+            // Pitch
+            mge._audio._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
         }
         // Volume
         let _oscGain = _ctx.createGain()
