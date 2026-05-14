@@ -3,7 +3,7 @@
 ///////////////////////////
 mge._synth._synthetizer._synthInit = function (_oscList) {
     // Create the unique name of the synth (for prerender)
-    this._name = mge._synth._curID + '_'
+    this._name = mge._synth._curID
     mge._synth._curID += 1
     // Create and configure all the oscillators
     let _oscs = []
