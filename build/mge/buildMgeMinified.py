@@ -3,20 +3,20 @@ import buildUtils
 
 inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/audio.js',\
+              '../../src/mge/synthetizer.js',\
               '../../src/mge/sequencer.js',\
               '../../src/mge/game.js',\
               '../../src/mge/keyboard.js',\
               '../../src/mge/mouse.js',\
               '../../src/mge/sprite.js',\
-              '../../src/mge/audio/_applyADSR.js',\
               '../../src/mge/audio/_create.js',\
-              '../../src/mge/audio/_playSound.js',\
               '../../src/mge/audio/_setVolume.js',\
               '../../src/mge/audio/_volumeToGain.js',\
               '../../src/mge/canvas/_create.js',\
               '../../src/mge/canvas/_fitToScreen.js',\
               '../../src/mge/game/_create.js',\
               '../../src/mge/game/_createSprite.js',\
+              '../../src/mge/game/_createSynth.js',\
               '../../src/mge/game/_getClonesNb.js',\
               '../../src/mge/game/_sceneChange.js',\
               '../../src/mge/game/_start.js',\
@@ -50,6 +50,13 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/sprite/_cloneDeleteAll.js',\
               '../../src/mge/sprite/_cloneExecuteForEach.js',\
               '../../src/mge/sprite/_listCollisionsWithClones.js',\
+              '../../src/mge/synthetizer/_standardOsc.js',\
+              '../../src/mge/synthetizer/_synthGetCacheId.js',\
+              '../../src/mge/synthetizer/_synthInit.js',\
+              '../../src/mge/synthetizer/_synthPlay.js',\
+              '../../src/mge/synthetizer/_synthPlayLive.js',\
+              '../../src/mge/synthetizer/_synthPreRender.js',\
+              '../../src/mge/synthetizer/_synthPlayPreRendered.js',\
               '../../src/mge/sequencer/_create.js',\
               '../../src/mge/sequencer/_noteToFrequency.js',\
               '../../src/mge/sequencer/_createTrack.js',\
@@ -66,20 +73,35 @@ stringsToUglify=[]
 #########################################
 # Audio
 #########################################
-# _applyADSR.js
-stringsToUglify+=['_applyADSR','_envelop','_audioParam', '_startTime', '_duration', '_minValue', '_maxValue']
 # _create.js
 stringsToUglify+=['_audioContext','_audioGain']
 # _playSound.js
-stringsToUglify+=['_playSound','_synthConfig','_outputNode','_frequency','_startTime','_duration','_applyADSR','_context','_oscType']
-stringsToUglify+=['_filterType','_volumeADSR','_pitchADSR','_detuneADSR','_filterFreqADSR','_filterQADSR','_oscGainADSR','_oscVolume','_filter','_osc']
-stringsToUglify+=['_reverb','_delay','_feedbackGain']
+stringsToUglify+=['_playSound','_synthConfig','_outputNode','_frequency','_startTime','_duration','_applyADSR','_context']
 # _setVolume.js
 stringsToUglify+=['_setVolume']
 # _volumeToGain.js
 stringsToUglify+=['_volumeToGain','_maxDBReduction']
 # Namespace
-stringsToUglify+=['_audio','_volume']
+stringsToUglify+=['_audio']
+#########################################
+# Synthetizer
+#########################################
+# _standardOsc.js
+stringsToUglify+=['_standardOsc','_applyADSR','_envelop','_audioParam', '_startTime', '_duration']
+stringsToUglify+=['_play','_buffer','_noiseOutput','_oscGain','_oscFilter','_feedbackGain']
+# _synthGetCacheId.js
+stringsToUglify+=['_synthGetCacheId']
+# _synthInit.js
+stringsToUglify+=['_synthInit','_oscList']
+# _synthPlay.js
+# _synthPlayLive.js
+# _synthPlayPreRendered.js
+stringsToUglify+=['_soundGain','_synthPlayLive','_synthPlayPreRendered','_synthPlay','_preRenderedSounds']
+# _synthPreRender.js
+stringsToUglify+=['_offlineContext','_synthPreRender']
+# Namespaces
+stringsToUglify+=['_synth','_synthetizer']
+
 #########################################
 # Canvas
 #########################################
@@ -190,11 +212,11 @@ stringsToUglify+=['_sprite']
 # _create.js
 stringsToUglify+=['_tracks','_bpm','_nextBarNum','_nextBarStartTime','_nextBarTriggerTime','_status']
 # _createTrack.js
-stringsToUglify+=['_createTrack','_bars','_instrument','_volume','_tracks','_track','_newTrack']
+stringsToUglify+=['_createTrack','_bars','_instrument','_tracks','_track','_newTrack']
 # _noteToFrequency.js
 stringsToUglify+=['_noteToFrequency','_noteToEvaluate','_notesFrequence','_octave','_note','_frequency']
 # _playTrackBar.js
-stringsToUglify+=['_playTrackBar','_track','_barNum','_instrument','_volume','_bar','_curTime','_noteFrequency','_note','_duration']
+stringsToUglify+=['_playTrackBar','_track','_barNum','_instrument','_bar','_curTime','_noteFrequency','_note','_duration']
 # _play.js
 stringsToUglify+=['_play','_currentAudioTime','_track']
 # _start.js
@@ -202,7 +224,7 @@ stringsToUglify+=['_start']
 # _stop.js
 stringsToUglify+=['_stop']
 # _track.js
-stringsToUglify+=['_track','_bars','_instrument','_volume','_setVolume','_getBar','_numBar','_nbBars']
+stringsToUglify+=['_track','_bars','_instrument','_setVolume','_getBar','_numBar','_nbBars']
 # Namespace
 stringsToUglify+=['_sequencer']
 #########################################
