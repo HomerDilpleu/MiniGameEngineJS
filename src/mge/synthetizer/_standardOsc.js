@@ -11,6 +11,49 @@ mge._synth._standardOsc = {
     _filterQ:1,
     _filterADSR: {a:0, d:0, s:1, r:0, minValue: 10000, maxValue: 10000},
     _reverb: {_delay: 0, _feedbackLevel: 0},
+    /////////////////////////////////
+    /////////////////////////////////
+    _applyADSR: function (_envelop, _audioParam, _startTime, _duration) {
+        // Get parameters
+        let a = _envelop.a || 0.0001
+        let d = _envelop.d || 0.0001
+        let s = _envelop.s || 0.0001
+        let r = _envelop.r || 0.0001
+        let _minValue = _envelop.minValue || 0.0001
+        let _maxValue = _envelop.maxValue || 1
+        // Case 1: duration < attack
+        if (_duration <= a) {
+            // Attack
+            _audioParam.setValueAtTime(_minValue, _startTime)
+            _audioParam.exponentialRampToValueAtTime(_maxValue*_duration/a, _startTime+_duration)
+            // Release
+            _audioParam.exponentialRampToValueAtTime(_minValue, _startTime+_duration+r) 
+        } 
+        // Case 2: duration < attack + decay
+        else if (_duration <= a + d) {
+            // Attack
+            _audioParam.setValueAtTime(_minValue, _startTime)
+            _audioParam.exponentialRampToValueAtTime(_maxValue, _startTime+a)
+            // Decay
+            _audioParam.exponentialRampToValueAtTime(_maxValue*s*d/_duration, _startTime+_duration)
+            // Release
+            _audioParam.exponentialRampToValueAtTime(_minValue, _startTime+_duration+r) 
+        }
+        // Case 3: normal case
+        else {
+            // Attack
+            _audioParam.setValueAtTime(_minValue, _startTime)
+            _audioParam.exponentialRampToValueAtTime(_maxValue, _startTime+a)
+            // Decay
+            _audioParam.exponentialRampToValueAtTime(_maxValue*s, _startTime+a+d)
+            // Sustain
+            _audioParam.setValueAtTime(_maxValue*s, _startTime+_duration)
+            // Release
+            _audioParam.exponentialRampToValueAtTime(_minValue, _startTime+_duration+r)         
+        }
+    },
+    /////////////////////////////////
+    /////////////////////////////////
     _play: function (_ctx, _frequency, _startTime, _duration, _destination) {
         let _osc = {}
         ////////////
@@ -40,18 +83,18 @@ mge._synth._standardOsc = {
                 _osc.frequency.setValueAtTime(_frequency * 2, _startTime)
             }
             // Detune
-            mge._synth._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
+            this._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
             // Pitch
-            mge._synth._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
+            this._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
         }
         // Volume
         let _oscGain = _ctx.createGain()
-        mge._synth._applyADSR (this._volumeADSR, _oscGain.gain, _startTime, _duration)
+        this._applyADSR (this._volumeADSR, _oscGain.gain, _startTime, _duration)
         // Filter
         let _oscFilter = _ctx.createBiquadFilter()
         _oscFilter.type = this._filterType
         _oscFilter.Q.value = this._filterQ
-        mge._synth._applyADSR (this._filterADSR, _oscFilter.frequency, _startTime, _duration)
+        this._applyADSR (this._filterADSR, _oscFilter.frequency, _startTime, _duration)
         // Reverb
         let _delay = new DelayNode(_ctx, {delayTime: this._reverb._delay})
         let _feedbackGain = _ctx.createGain()
