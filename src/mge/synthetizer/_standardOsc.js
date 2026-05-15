@@ -4,7 +4,7 @@
 mge._synth._standardOsc = {
     _type: 'sawtooth', 
     _octave: 0, 
-    _volumeADSR: {a:0, d:0, s:0, r:0, minValue: 0, maxValue: 0},
+    _volumeADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 0, maxValue: 1},
     _detuneADSR: {a:0, d:0, s:1, r:0, minValue: 0, maxValue: 0},
     _pitchADSR: {a:0, d:0, s:1, r:0, minValue: 1, maxValue: 1},
     _filterType: 'lowpass', 
