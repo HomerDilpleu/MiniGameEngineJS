@@ -26,7 +26,4 @@ mge._game._create = function (_width, _height) {
     // Create the game loop
     mge._loop._create()
 
-    // Create global variables shared by al synthetizers
-    mge._synth._create()
-
 }

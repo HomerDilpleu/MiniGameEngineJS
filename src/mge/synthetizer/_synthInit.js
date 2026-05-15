@@ -2,9 +2,8 @@
 // Initialize a synthetizer
 ///////////////////////////
 mge._synth._synthetizer._synthInit = function (_oscList) {
-    // Create the unique name of the synth (for prerender)
-    this._name = mge._synth._curID
-    mge._synth._curID += 1
+    // Create properties
+    this._preRenderedSounds = new Map()
     // Create and configure all the oscillators
     let _oscs = []
     _oscList.forEach (_osc => {

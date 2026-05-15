@@ -5,7 +5,7 @@ mge._synth._synthetizer._synthPlayPreRendered = function (_frequency, _startTime
     let _ctx = mge._audio._audioContext
     // Get prerendered buffer
     let _source = _ctx.createBufferSource()
-    _source.buffer = mge._synth._preRenderedSounds.get(this._synthGetCacheId(_frequency, _duration))
+    _source.buffer = this._preRenderedSounds.get(this._synthGetCacheId(_frequency, _duration))
     // Volume
     let _soundGain = _ctx.createGain()
     _soundGain.gain.setValueAtTime(_volume, _startTime)

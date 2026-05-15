@@ -11,6 +11,6 @@ mge._synth._synthetizer._synthPreRender = function (_frequency, _duration) {
     })
     // Prerender
     _offlineContext.startRendering().then(_renderedCache => {
-            mge._synth._preRenderedSounds.set(this._synthGetCacheId(_frequency, _duration),_renderedCache)
+            this._preRenderedSounds.set(this._synthGetCacheId(_frequency, _duration),_renderedCache)
         })
 }
