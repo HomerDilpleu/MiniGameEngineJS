@@ -75,17 +75,13 @@ mge._synth._standardOsc = {
             // Type
             _osc.type = this._type
             // Frequency
-            _osc.frequency.setValueAtTime(_frequency, _startTime)
-            if (this._octave == -1) {
-                _osc.frequency.setValueAtTime(_frequency / 2, _startTime)
-            }
-            if (this._octave == 1) {
-                _osc.frequency.setValueAtTime(_frequency * 2, _startTime)
-            }
+           let _realFrequency = _frequency
+           if (this._octave == -1) {_realFrequency = _frequency / 2}
+           if (this._octave == 1) {_realFrequency = _frequency * 2}
             // Detune
             this._applyADSR(this._detuneADSR, _osc.detune, _startTime, _duration)
             // Pitch
-            this._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _frequency * this._pitchADSR.minValue, maxValue: _frequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
+            this._applyADSR({a:this._pitchADSR.a, d:this._pitchADSR.d, s:this._pitchADSR.s, r:this._pitchADSR.r, minValue: _realFrequency * this._pitchADSR.minValue, maxValue: _realFrequency * this._pitchADSR.maxValue}, _osc.frequency, _startTime, _duration)
         }
         // Volume
         let _oscGain = _ctx.createGain()

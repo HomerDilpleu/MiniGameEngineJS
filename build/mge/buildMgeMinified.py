@@ -88,7 +88,7 @@ stringsToUglify+=['_audio']
 #########################################
 # _standardOsc.js
 stringsToUglify+=['_standardOsc','_applyADSR','_envelop','_audioParam', '_startTime', '_duration']
-stringsToUglify+=['_play','_buffer','_noiseOutput','_oscGain','_oscFilter','_feedbackGain']
+stringsToUglify+=['_play','_buffer','_noiseOutput','_oscGain','_oscFilter','_feedbackGain','_realFrequency']
 # _synthGetCacheId.js
 stringsToUglify+=['_synthGetCacheId']
 # _synthInit.js
@@ -214,7 +214,7 @@ stringsToUglify+=['_tracks','_bpm','_nextBarNum','_nextBarStartTime','_nextBarTr
 # _createTrack.js
 stringsToUglify+=['_createTrack','_bars','_instrument','_tracks','_track','_newTrack']
 # _noteToFrequency.js
-stringsToUglify+=['_noteToFrequency','_noteToEvaluate','_notesFrequence','_octave','_note','_frequency']
+stringsToUglify+=['_noteToFrequency','_noteToEvaluate','_notesFrequence','_note','_frequency']
 # _playTrackBar.js
 stringsToUglify+=['_playTrackBar','_track','_barNum','_instrument','_bar','_curTime','_noteFrequency','_note','_duration']
 # _play.js
