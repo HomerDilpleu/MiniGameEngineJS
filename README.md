@@ -136,42 +136,62 @@ let mouseY = mge.mouse.y
 
 ## Synthetizer
 MGE provides a mini synthetizer to create sounds.
-This synthetizer is composed of one oscillator (sine, square, triangle, sawtooth or white noise), one filter (low pass or high pass) and several adsr envelops (volume, filter frequency, filter Q, detune,...).
 
-The synthetizer settings must be declared in an object as follows.
+A synthetizer is made of one or several oscillators (an array of oscillators).
+
+Each oscillator has one type (sine, square, triangle, sawtooth or white noise), one filter (low pass or high pass), several adsr envelops (volume, filter frequency, detune,...) and some reverb options.
+
+An oscillator settings must be declared in an object as follows.
 
 ```
-let mySynth = {
-    oscType:'sine',
-    filterType: 'lowpass',
-    volumeADSR: {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1},
-    pitchADSR: {a:0, d:0, s:1, r:0, minValue:1000, maxValue: 500},
-    detuneADSR: {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0},
-    filterFreqADSR: {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000},
-    filterQADSR: {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1},
-    reverb: {delay: 0.5, feedbackLevel: 0.3}
+let myOsc = {
+    _type: 'sawtooth', 
+    _octave: 0, 
+    _volumeADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 0, maxValue: 1},
+    _detuneADSR: {a:0, d:0, s:1, r:0, minValue: 0, maxValue: 0},
+    _pitchADSR: {a:0, d:0, s:1, r:0, minValue: 1, maxValue: 1},
+    _filterType: 'lowpass', 
+    _filterQ:1,
+    _filterADSR: {a:0, d:0, s:1, r:0, minValue: 10000, maxValue: 10000},
+    _reverb: {_delay: 0, _feedbackLevel: 0},
 }   
 ```
 
 All these settings are **NOT** mandatory. The following example is perfectly correct:
 ```
-let mySynth = {
-    oscType:'triangle',
-    volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
+let myOsc = {
+    _type:'triangle',
+    _volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
 }
 ```
 
-To play the sound of a synthetizer, the **mge.audio.playSound** function must be called with the following parameters:
-* synthezer configuration
+A synthetizer is created using the **mge.game.createSynthetizer** function that takes as parameter an array of oscillators.
+
+Let's imagine we want te create a synthetizer with 2 oscillators, one sine osc and one noise osc with different adsr envelops:
+
+```
+let sineOsc = {
+    _type:'sine',
+    _volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
+}
+let noiseOsc = {
+    _type:'noise',
+    _volumeADSR: {a:2, d:0.5, s:1, r:0.2, minValue:0, maxValue: 1}
+}
+let mySynth = mge.game.createSynthetizer([sineOsc,noiseOsc])
+
+```
+
+To play the sound of a synthetizer, the synthetizer **play** function must be called with the following parameters:
 * frequency
 * starttime
 * duration
 * volume
 
-The following example will play right now a sine wave of 440 Hz during 1 second
+The following example will play, right now, the **mySynth** synthetizer created previously at 440 Hz during 1 second
 
 ```
-mge.audio.playSound({oscType:'sine'},440,mge.audio.currentAudioTime,1,1)
+mySynth.play(440,mge.audio.currentAudioTime,1,1)
 ```
 
 ## Audio sequencer
@@ -206,17 +226,14 @@ This play function must have the following parameters:
 * volume
 
 The easiest way to create an instrument is to use the MGE synthetizer.
-Example of a simple "retro gaming" instrument:
+Example of a simple instrument:
 
 ```
-let myRetroGameInstrument = {
-    play: function (_frequency, _startTime, _duration, _volume) {
-        let _synthConfig = {oscType:'triangle',
-                            volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: _volume}
-                        }      
-        mge.audio.playSound(_synthConfig, _frequency, _startTime, _duration, _volume)
-    }
+let simpleSynthConfig = {
+  _type:'triangle',
+  _volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
 }
+let simpleSynth = mge.game.createSynthetizer([simpleSynthConfig])
 ```
 
 ### Tracks
@@ -245,25 +262,10 @@ Some simple examples can be found in the "examples" folder.
 ## Documentation
 
 ### mge.audio
-Provides access to the audio context and to the built-in synthetizer
+Provides access to the audio context
 #### -> Properties
 * currentAudioTime (Read Only): current time of the audio context
 * volume: audio context volume
-#### -> Methods
-* playSound(_synthConfig,_frequency,_startTime,_duration,_volume): play a sound in the game audio context
-    * _synthConfig: synthetizer configuration as follows:
-        * oscType: oscllator type (default value = 'sine')
-        * filterType: type of filter (default value = 'lowpass')
-        * volumeADSR: ADSR envelop for the volume (default value = {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1})
-        * pitchADSR: ADSR envelop for the pitch (default value = {a:0, d:0, s:1, r:0, minValue:_frequency, maxValue: _frequency})
-        * detuneADSR: ADSR envelop for the detune (default value = {a:0, d:0, s:1, r:0, minValue:0, maxValue: 0})
-        * filterFreqADSR: ADSR envelop for the filter frequency (default value = {a:0, d:0, s:1, r:0, minValue:20000, maxValue: 20000})
-        * filterQADSR: ADSR envelop for the filter Q (default value = {a:0, d:0, s:1, r:0, minValue:1, maxValue: 1})
-        * reverb: reverberation effect (default value = {delay: 0, feedbackLevel: 0})
-    * _frequency: sound frequency in Hz
-    * _startTime: start time (of the audio context)
-    * _duration: duration in s
-    * _volume: volume (value between 0 and 1)
 
 -------------------------
 ### mge.game
@@ -278,6 +280,18 @@ Provides access to the MGE game
 * start(_scene): starts the game and starts the _scene
 * changeScene(_scene): changes the current _scene 
 * createSprite(): creates and returns a sprite object
+* createSynthetizer(_oscList): creates and return a synthetizer object. This method input is an array of oscillator configutations (*)
+
+(*) An oscillator configuration is an object containing the following elements:
+* _type: type of the oscillator (sine, square, triangle, sawtooth or noise)
+* _octave: the relative octave of this oscillator in the synthetizer (-1 will play an octave below, 0 will play at the synthetizer octave, 1 will play an octave above,...)
+* _volumeADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 0, maxValue: 1} --> min and max values as % of volume
+* _detuneADSR: {a:0, d:0, s:1, r:0, minValue: 0, maxValue: 0} --> min and max values in cents
+* _pitchADSR: {a:0, d:0, s:1, r:0, minValue: 1, maxValue: 1} --> min and max values as % of frequency
+* _filterType: lowpass or highpass
+* _filterQ: resonance of the filter
+* _filterADSR: {a:0, d:0, s:1, r:0, minValue: 10000, maxValue: 10000} --> min and max values in Hz
+*  _reverb: {_delay: 0, _feedbackLevel: 0}
 
 -------------------------
 ### mge.keyboard 
@@ -339,6 +353,21 @@ let mySprite = mge.game.createSprite()
 * cloneDelete(): deletes itself as clone
 * cloneDeleteAll(): deletes all the clones of the sprite
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
+
+-------------------------
+### Synthetizer 
+Synthetizers are created using mge.game.createSynthetizer():
+```
+let simpleSynthConfig = {
+  _type:'triangle',
+  _volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
+}
+let simpleSynth = mge.game.createSynthetizer([simpleSynthConfig])
+```
+#### -> Methods
+* play(frequency, startTime, duration, volume): play a the synthetizer
+
+
 
 # Contact
 homer.dilpleu@yahoo.com

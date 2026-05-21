@@ -17,3 +17,8 @@ Improve overall code
 
 # V1.1.1
 Add reverberation to audio module
+
+# V1.2.0
+May 2026
+Add the synthetizer module
+Remove the obsolete audio.play_sound function

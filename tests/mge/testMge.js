@@ -66,16 +66,47 @@ spriteTest.drawFunction = function (ctx) {
 }
 
 //////////////////////////
-// AUDIO
+// SYNTHETIZER
 //////////////////////////
-myRetroGameInstrument = {
-  play: function (_frequency, _startTime, _duration, _volume) {
-      let _synthConfig = {oscType:'triangle',
-                          volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: _volume}
-                      }      
-      mge.audio.playSound(_synthConfig, _frequency, _startTime, _duration, _volume)
-  }
+synthSine = mge.game.createSynthetizer([{_type: 'sine'}])
+synthTriangle = mge.game.createSynthetizer([{_type: 'triangle'}])
+synthNoise = mge.game.createSynthetizer([{_type: 'noise'}])
+synthComplexeOsc1Config = {
+  _type:'sawtooth',
+  _octave: 0,
+  _volumeADSR: {a:0.02, d:0.3, s:0.8, r:0.1, minValue: 0, maxValue: 1},
+  _filterType: 'lowpass', 
+  _filterADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 1000, maxValue: 2000},
+  _reverb: {_delay: 0.1, _feedbackLevel: 0.4}
 }
+synthComplexeOsc2Config = {
+  _type:'sawtooth',
+  _octave: -1,
+  _volumeADSR: {a:0.02, d:0.3, s:0.8, r:0.1, minValue: 0, maxValue: 1},
+  _filterType: 'lowpass', 
+  _filterADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 1000, maxValue: 2000},
+  _reverb: {_delay: 0.1, _feedbackLevel: 0.4}
+}
+synthComplexeOsc3Config = {
+  _type:'sawtooth',
+  _octave: 0,
+  _volumeADSR: {a:0.02, d:0.3, s:0.8, r:0.1, minValue: 0, maxValue: 1},
+  _filterType: 'lowpass', 
+  _filterADSR: {a:0.1, d:0.1, s:0.8, r:0.1, minValue: 1000, maxValue: 2000},
+  _detuneADSR: {a:0.02, d:0.3, s:0.8, r:0.1, minValue:-4, maxValue: 4},
+  _reverb: {_delay: 0.1, _feedbackLevel: 0.4}
+}
+synthComplexeOscs = [synthComplexeOsc1Config,synthComplexeOsc2Config,synthComplexeOsc3Config]
+synthComplexe = mge.game.createSynthetizer(synthComplexeOscs)
+
+//////////////////////////
+// SEQUENCER
+//////////////////////////
+synthRetroConfig = {
+  _type:'triangle',
+  _volumeADSR: {a:0.02, d:0.5, s:0.2, r:0.15, minValue:0, maxValue: 1}
+}
+synthRetro = mge.game.createSynthetizer([synthRetroConfig])
 // Create 3 bars
 myBar1 = ['C2',4]                                 // Whole C (2nd octave)
 myBar2 = ['C1',2,'G1',2]                          // Half G (1st octave) and half G (1st octave)
@@ -83,10 +114,9 @@ myBar3 = ['C4',1.5,'Eb4',0.5,'G4',1,'Bb4',1]      // Dotted quarter C4, eighth E
 // Sequencer
 mge.sequencer.reset()
 mge.sequencer.bpm = 120        
-mge.sequencer.createTrack([myBar1],myRetroGameInstrument,1)
-mge.sequencer.createTrack([myBar2],myRetroGameInstrument,1)
-mge.sequencer.createTrack([myBar3],myRetroGameInstrument,1)
-
+mge.sequencer.createTrack([myBar1],synthRetro,1)
+mge.sequencer.createTrack([myBar2],synthRetro,1)
+mge.sequencer.createTrack([myBar3],synthRetro,1)
 
 //////////////////////////
 // SCENE
@@ -152,34 +182,29 @@ sceneMain.update = function() {
   if(mge.keyboard.isKeyPressed('-')) {spriteTest.cloneDeleteAll()}
   spriteDebug.text.push('')
   spriteDebug.text.push('AUDIO')
-  spriteDebug.text.push('Play sine sound: s')
-  if(mge.keyboard.isKeyPressed('s')) {
-    mge.audio.playSound({oscType:'sine'},440,mge.audio.currentAudioTime,1,1)
+  spriteDebug.text.push('Play sine sound: s + click')
+  if(mge.keyboard.isKeyPressed('s') & mge.mouse.isClicked) {
+    synthSine.play(440,mge.audio.currentAudioTime,2,1)
   }
-  spriteDebug.text.push('Play triangle sound: t')
-  if(mge.keyboard.isKeyPressed('t')) {
-    mge.audio.playSound({oscType:'triangle'},440,mge.audio.currentAudioTime,1,1)
+  spriteDebug.text.push('Play triangle sound: t + click')
+  if(mge.keyboard.isKeyPressed('t') & mge.mouse.isClicked) {
+    synthTriangle.play(440,mge.audio.currentAudioTime,2,1)
   }
-  spriteDebug.text.push('Play noise sound: n')
-  if(mge.keyboard.isKeyPressed('n')) {
-    mge.audio.playSound({oscType:'noise'},440,mge.audio.currentAudioTime,1,1)
+  spriteDebug.text.push('Play noise sound: n + click')
+  if(mge.keyboard.isKeyPressed('n') & mge.mouse.isClicked) {
+    synthNoise.play(440,mge.audio.currentAudioTime,2,1)
   }
-  spriteDebug.text.push('Play reverb sound: r')
-  if(mge.keyboard.isKeyPressed('r')) {
-    let oscConfig = {oscType:'sawtooth',
-                      volumeADSR: {a:0.1, d:0.5, s:0.8, r:0.2, minValue:0, maxValue: 1},
-                      filterFreqADSR: {a:5, d:0, s:1, r:0.2, minValue:2000, maxValue: 4000},
-                      reverb: {delay: 0.5, feedbackLevel: 0.3}
-    }
-    mge.audio.playSound(oscConfig,440,mge.audio.currentAudioTime,1,1)
+  spriteDebug.text.push('Play complexe synth: c + click')
+  if(mge.keyboard.isKeyPressed('c') & mge.mouse.isClicked) {
+    synthComplexe.play(220,mge.audio.currentAudioTime,2,1)
   }
-  spriteDebug.text.push('Start sequencer: w')
-  if(mge.keyboard.isKeyPressed('w')) {
+  spriteDebug.text.push('Start sequencer: w + click')
+  if(mge.keyboard.isKeyPressed('w') & mge.mouse.isClicked) {
     mge.sequencer.stop()
     mge.sequencer.start()
   }
-  spriteDebug.text.push('Stop sequencer: x')
-  if(mge.keyboard.isKeyPressed('x')) {
+  spriteDebug.text.push('Stop sequencer: x + click')
+  if(mge.keyboard.isKeyPressed('x') & mge.mouse.isClicked) {
     mge.sequencer.stop()
   }
 }

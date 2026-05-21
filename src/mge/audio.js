@@ -21,9 +21,10 @@ mge.audio = {
     ////////////////
     // Methods
     ////////////////
-    playSound: function(_synthConfig,_frequency,_startTime,_duration,_volume) {
-        mge._audio._playSound(_synthConfig, mge._audio._audioGain, _frequency, _startTime, _duration, _volume)
-    }
+
 }
+
+
+
 
 

@@ -3,20 +3,20 @@ import buildUtils
 
 inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/audio.js',\
+              '../../src/mge/synthetizer.js',\
               '../../src/mge/sequencer.js',\
               '../../src/mge/game.js',\
               '../../src/mge/keyboard.js',\
               '../../src/mge/mouse.js',\
               '../../src/mge/sprite.js',\
-              '../../src/mge/audio/_applyADSR.js',\
               '../../src/mge/audio/_create.js',\
-              '../../src/mge/audio/_playSound.js',\
               '../../src/mge/audio/_setVolume.js',\
               '../../src/mge/audio/_volumeToGain.js',\
               '../../src/mge/canvas/_create.js',\
               '../../src/mge/canvas/_fitToScreen.js',\
               '../../src/mge/game/_create.js',\
               '../../src/mge/game/_createSprite.js',\
+              '../../src/mge/game/_createSynth.js',\
               '../../src/mge/game/_getClonesNb.js',\
               '../../src/mge/game/_sceneChange.js',\
               '../../src/mge/game/_start.js',\
@@ -50,6 +50,13 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/sprite/_cloneDeleteAll.js',\
               '../../src/mge/sprite/_cloneExecuteForEach.js',\
               '../../src/mge/sprite/_listCollisionsWithClones.js',\
+              '../../src/mge/synthetizer/_standardOsc.js',\
+              '../../src/mge/synthetizer/_synthGetCacheId.js',\
+              '../../src/mge/synthetizer/_synthInit.js',\
+              '../../src/mge/synthetizer/_synthPlay.js',\
+              '../../src/mge/synthetizer/_synthPlayLive.js',\
+              '../../src/mge/synthetizer/_synthPreRender.js',\
+              '../../src/mge/synthetizer/_synthPlayPreRendered.js',\
               '../../src/mge/sequencer/_create.js',\
               '../../src/mge/sequencer/_noteToFrequency.js',\
               '../../src/mge/sequencer/_createTrack.js',\
