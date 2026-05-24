@@ -119,6 +119,12 @@ mge.sequencer.createTrack([myBar2],synthRetro,1)
 mge.sequencer.createTrack([myBar3],synthRetro,1)
 
 //////////////////////////
+// TIMER
+//////////////////////////
+simpleTimer = mge.game.createTimer(3000,'')
+loopTimer = mge.game.createTimer(3000,'L')
+
+//////////////////////////
 // SCENE
 //////////////////////////
 sceneMain={}
@@ -207,11 +213,24 @@ sceneMain.update = function() {
   if(mge.keyboard.isKeyPressed('x') & mge.mouse.isClicked) {
     mge.sequencer.stop()
   }
+  spriteDebug.text.push('')
+  spriteDebug.text.push('TIMER')
+  spriteDebug.text.push('Simple timer (Restart: a + click): ' + simpleTimer.progress.toFixed(2))
+  spriteDebug.text.push('Loop timer (Restart: b + click): ' + loopTimer.progress.toFixed(2))
+  if(mge.keyboard.isKeyPressed('a') & mge.mouse.isClicked) {
+    simpleTimer.start()
+  }
+  if(mge.keyboard.isKeyPressed('b') & mge.mouse.isClicked) {
+    loopTimer.start()
+  }
+
 }
 sceneMain.draw = function() {
   spriteBackground.draw()
   spriteDebug.draw()
   spriteTest.draw()
+  simpleTimer.update()
+  loopTimer.update()
   spriteTest.cloneExecuteForEach('draw')
 }
 

@@ -46,5 +46,8 @@ mge.game = {
     },
     createSynthetizer: function (_oscList) {
         return mge._game._createSynth(_oscList)
+    },
+    createTimer: function (_duration, _mode) {
+        return mge._game._createTimer(_duration, _mode)
     }
 }

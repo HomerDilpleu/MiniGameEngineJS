@@ -10,5 +10,6 @@ const mge = {
     _mouse:{},
     _keyboard:{},
     _sequencer:{},
-    _synth:{}
+    _synth:{},
+    _timer:{}
 }

@@ -9,6 +9,7 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/keyboard.js',\
               '../../src/mge/mouse.js',\
               '../../src/mge/sprite.js',\
+              '../../src/mge/timer.js',\
               '../../src/mge/audio/_create.js',\
               '../../src/mge/audio/_setVolume.js',\
               '../../src/mge/audio/_volumeToGain.js',\
@@ -17,6 +18,7 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/game/_create.js',\
               '../../src/mge/game/_createSprite.js',\
               '../../src/mge/game/_createSynth.js',\
+              '../../src/mge/game/_createTimer.js',\
               '../../src/mge/game/_getClonesNb.js',\
               '../../src/mge/game/_sceneChange.js',\
               '../../src/mge/game/_start.js',\
@@ -65,6 +67,9 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/sequencer/_start.js',\
               '../../src/mge/sequencer/_stop.js',\
               '../../src/mge/sequencer/_track.js',\
+              '../../src/mge/timer/_init.js',\
+              '../../src/mge/timer/_start.js',\
+              '../../src/mge/timer/_update.js',\
               '../../src/mge/main.js'\
               ]
 
