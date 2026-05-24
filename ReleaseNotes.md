@@ -22,3 +22,7 @@ Add reverberation to audio module
 May 2026
 Add the synthetizer module
 Remove the obsolete audio.play_sound function
+
+# V1.3.0
+May 2026
+Add the timer module

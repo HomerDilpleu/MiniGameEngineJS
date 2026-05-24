@@ -9,6 +9,7 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/keyboard.js',\
               '../../src/mge/mouse.js',\
               '../../src/mge/sprite.js',\
+              '../../src/mge/timer.js',\
               '../../src/mge/audio/_create.js',\
               '../../src/mge/audio/_setVolume.js',\
               '../../src/mge/audio/_volumeToGain.js',\
@@ -17,6 +18,7 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/game/_create.js',\
               '../../src/mge/game/_createSprite.js',\
               '../../src/mge/game/_createSynth.js',\
+              '../../src/mge/game/_createTimer.js',\
               '../../src/mge/game/_getClonesNb.js',\
               '../../src/mge/game/_sceneChange.js',\
               '../../src/mge/game/_start.js',\
@@ -65,6 +67,9 @@ inputFiles = ['../../src/mge/mge.js',\
               '../../src/mge/sequencer/_start.js',\
               '../../src/mge/sequencer/_stop.js',\
               '../../src/mge/sequencer/_track.js',\
+              '../../src/mge/timer/_init.js',\
+              '../../src/mge/timer/_start.js',\
+              '../../src/mge/timer/_update.js',\
               '../../src/mge/main.js'\
               ]
 
@@ -118,6 +123,8 @@ stringsToUglify+=['_canvas']
 stringsToUglify+=['_width','_height','_curScene', '_nextScene','_spritesList']
 # _createSprite.js
 stringsToUglify+=['_createSprite','_renderContext','_newSprite']
+# _createTimer.js
+stringsToUglify+=['_createTimer','_mode']
 # _sceneChange.js
 stringsToUglify+=['_sceneChange','_scene']
 # _start.js
@@ -227,6 +234,15 @@ stringsToUglify+=['_stop']
 stringsToUglify+=['_track','_bars','_instrument','_setVolume','_getBar','_numBar','_nbBars']
 # Namespace
 stringsToUglify+=['_sequencer']
+#########################################
+# Timer
+#########################################
+# _createTimer.js
+stringsToUglify+=['_timer','_createTimer']
+# _start.js
+stringsToUglify+=['_start','_progress','_startTimestamp']
+# _update.js
+stringsToUglify+=['_update']
 #########################################
 # Other
 #########################################
