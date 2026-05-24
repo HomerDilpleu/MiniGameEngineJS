@@ -247,7 +247,7 @@ mge.sequencer.createTrack(myBars,myRetroGameInstrument,1)
 ```
 
 ### Starting and stopping the sequencer
-Once the tracks have been declared, the sequancer can be used as follows:
+Once the tracks have been declared, the sequencer can be used as follows:
 
 ```
 mge.sequencer.stop()            // Stop the sequencer
@@ -255,6 +255,44 @@ mge.sequencer.reset()           // Reset the sequencer (delete all tracks)
 mge.sequencer.bpm = 120         // Set the bpm (beats per minute). Bpm can be modified at any time
 mge.sequencer.start()           // Starts playing all the tracks
 ```
+
+## Timer
+Timers provide a progression rate (in %) for a given duration. They are useful for creating sprite animations.
+
+For example, if a sprite has an "opacity" property, you can create a timer to change the opacity from 0 to 1 in 3 seconds.
+
+To create a timer, use the **mge.game.createTime()** function that takes 2 parameters
+* duration of the timer in ms
+* mode: if 'L' the timer will loop (restart automatically when reach 100% progress), else it will be executed once (from 0% to 100%).
+
+Once started, you can restart the timer at anytime using its **start()** method.
+
+You can get the progress of the timer (decimal between 0 and 1) by calling it **progress** property.
+
+### IMPORTANT
+You must explicitely call the **update()** method in the game loop. This method is responsbile for increasing the progress property.
+
+```
+// Create a scene to illustrate the timer usage
+let myScene = {
+    start:function() {
+        // Create a 3s seconds timer that will loop
+        myTimer = mge.game.createTimer(3000,'L')
+    },
+    update:function() {
+        // Update the progress of the timer
+        myTimer.update()
+    },
+    draw: function() {
+        // Display the progress (value from 0 to 1) in the console
+        console.log(myTimer.progress)
+    }
+}
+
+// Start the scene
+mge.game.changeScene(myScene)
+```
+
 
 ## Examples
 Some simple examples can be found in the "examples" folder.
@@ -280,6 +318,9 @@ Provides access to the MGE game
 * start(_scene): starts the game and starts the _scene
 * changeScene(_scene): changes the current _scene 
 * createSprite(): creates and returns a sprite object
+* createTimer(duration, mode)
+    * duration: duration of the timer in ms
+    * mode: 'L' to loop the timer
 * createSynthetizer(_oscList): creates and return a synthetizer object. This method input is an array of oscillator configutations (*)
 
 (*) An oscillator configuration is an object containing the following elements:
@@ -367,6 +408,20 @@ let simpleSynth = mge.game.createSynthetizer([simpleSynthConfig])
 #### -> Methods
 * play(frequency, startTime, duration, volume): play a the synthetizer
 
+
+-------------------------
+### Timer
+Timers are created using mge.game.createTimer(duration,mode):
+```
+// Create a timer of 3 seconds that will loop
+let myTimer = mge.game.createTimer(3000,'L') 
+```
+#### -> Properties
+* progress: progress of the timer (value between 0 and 1)
+
+#### -> Methods
+* start(): restart a timer (set its progress to 0)
+* update(): update the progress of the timer. Must be called in the game loop
 
 
 # Contact
