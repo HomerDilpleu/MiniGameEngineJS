@@ -1,7 +1,7 @@
 # MiniGameEngineJS
 This project has been created for the 2023 js13kGames challenge https://js13kgames.com/
 
-The objective is to create a **minimalist and easy to use** engine for simple 2D games including:
+The objective was to create a **minimalist and easy to use** engine for simple 2D games including:
 * Game loop
 * Scenes management
 * Mouse and keyboard controls
@@ -9,7 +9,18 @@ The objective is to create a **minimalist and easy to use** engine for simple 2D
 * Synthetizer
 * Audio sequencer
 
-In addition, since 2024, some extensions of the core engine have been added as separate modules. You can check in **src/extensions** directory
+**Since 2023, this project has largely being improved and is still maintained actively.**
+
+The main objectives remain the same:
+* Limited size: around 4Kb minified and zip
+* Easyness: MGE API is very simple to use and largely documented
+* Minimalist but complete: provides all the basic features of a generic 2D engine
+
+**Exemple of games created with MGE** 
+* Cathedral builder (MGE 0.0.1): https://dilpleu-games.itch.io/cathedral-builder
+* Unloved 13 (MGE 1.0.0): https://dilpleu-games.itch.io/unloved-13
+* Wash the cat (MGE 1.1.1): https://dilpleu-games.itch.io/wash-the-cat
+  
 
 # Installation
 MGE is plain javascript. To use it, just import the latest version of the minified distribution (mge_Vx.x.x.min.js) available in the dist directory:
@@ -87,7 +98,7 @@ Other interesting attributes of a sprite are:
 * scaleX and scaleY to resize the sprite
 * isVisible to hide or show the sprite
 * isTouched and isCliked to detect interactions with the mouse
-* isColliding (otherSprite) to check if there is a collusion with the otherSprite
+* ...
 
 ## Sprite clones
 Sprites can be cloned in order to have several objects displayed in the screen, but sharing the same code. For example it can apply to enemies, bullets, ...
