@@ -31,14 +31,10 @@
             sprite.drawFunction = function (ctx) {
                 ctx.fillStyle='blue'
                 ctx.fillRect(0,0,100,100)
-                ctx.fillStyle='pink'
-                ctx.fillRect(20,20,60,60)
                 // Check if the sprite is selected
                 if (this.isSelected) {
                     ctx.fillStyle='pink'
                     ctx.fillRect(0,0,100,100)
-                    ctx.fillStyle='blue'
-                    ctx.fillRect(20,20,60,60)
                 }
             }
            // Create a specific update method
@@ -59,6 +55,11 @@
                     sprite.update()
                 },
                 draw: function() {
+                    let ctx = mge.game.context
+                    // Draw text instructions
+                    ctx.fillStyle = 'Black'
+                    ctx.font = "16px serif"
+                    ctx.fillText("Drag, select and unselect the sprite", 10, 30)
                     // Draw the sprite
                     sprite.draw()
                 }
