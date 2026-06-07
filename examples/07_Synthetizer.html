@@ -30,9 +30,9 @@
             let osc2 = {
                 _type: 'sawtooth', 
                 _volumeADSR:{a:0.005,d:0.15,s:0.3,r:0.1,minValue:0,maxValue:0.7},
-             _detuneADSR:{a:0,d:0,s:1,r:0,minValue:3,maxValue:3},
-             _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
-             _reverb:{_delay:0.1,_feedbackLevel:0.5}
+                _detuneADSR:{a:0,d:0,s:1,r:0,minValue:3,maxValue:3},
+                _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
+                _reverb:{_delay:0.1,_feedbackLevel:0.5}
             }    
             let synth = mge.game.createSynthetizer([osc1,osc2])
 
