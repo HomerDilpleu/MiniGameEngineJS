@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Sequencer</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // CREATE SYNTHETIZERS
+            //////////////////////////
+            // BASS
+            let bass = mge.game.createSynthetizer(
+                [{_type: 'sawtooth',
+                  _volumeADSR:{a:0.02,d:0.3,s:0.8,r:0.1,minValue:0,maxValue:0.5},
+                  _filterADSR:{a:0.1,d:0.1,s:0.8,r:0.1,minValue:1000,maxValue:2000},
+                  _reverb:{_delay:0.1,_feedbackLevel:0.4}},
+                {_type: 'sawtooth',
+                 _octave:-1,_volumeADSR:{a:0.02,d:0.3,s:0.8,r:0.1,minValue:0,maxValue:0.4},
+                 _filterADSR:{a:0.1,d:0.1,s:0.8,r:0.1,minValue:1000,maxValue:2000},
+                 _reverb:{_delay:0.1,_feedbackLevel:0.4}},
+                {_type: 'sawtooth',
+                 _volumeADSR:{a:null,d:0.3,s:0.8,r:0.1,minValue:0,maxValue:0.4},
+                 _detuneADSR:{a:0.02,d:0.3,s:0.8,r:0.1,minValue:-4,maxValue:4},
+                 _filterADSR:{a:0.1,d:0.1,s:0.8,r:0.1,minValue:1000,maxValue:2000},
+                 _reverb:{_delay:0.1,_feedbackLevel:0.4}}]
+            )
+            // ARPEGIATOR
+            let arpegiator = mge.game.createSynthetizer(
+                [{_type: 'sawtooth',
+                  _volumeADSR:{a:0.005,d:0.15,s:0.3,r:0.1,minValue:0,maxValue:1},
+                  _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
+                  _reverb:{_delay:0.1,_feedbackLevel:0.5}},
+                {_type: 'sawtooth',
+                 _volumeADSR:{a:0.005,d:0.15,s:0.3,r:0.1,minValue:0,maxValue:0.7},
+                 _detuneADSR:{a:0,d:0,s:1,r:0,minValue:3,maxValue:3},
+                 _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
+                 _reverb:{_delay:0.1,_feedbackLevel:0.5}}]
+            )
+            //////////////////////////
+            // SEQUENCER EXAMPLE
+            //////////////////////////
+            // BASS TRACK (4 bars, volume 0.8)
+            mge.sequencer.createTrack([['D2',4],['G2',4],['C2',4],['C2',4]],bass,0.8)
+            // ARPEGIATOR TRACK (4 bars, volume 0.8)
+            mge.sequencer.createTrack([['D3',1,'F3',1,'A3',1,'C4',1],['B3',1,'G3',1,'F3',1,'D3',1],['E3',1,'G3',1,'B3',1,'D4',1],['C4',1,'B3',1,'G3',1,'E3',1]],arpegiator,0.8)
+            // Define tempo
+            mge.sequencer.bpm = 120 
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    // If the mouse is clicked, play the sequencer
+                    if (mge.mouse.isClicked) {
+                        mge.sequencer.stop() 
+                        mge.sequencer.start() 
+                    }
+                    // if s is pressed, stop the sequencer
+                    if (mge.keyboard.isKeyPressed('s')){
+                        mge.sequencer.stop() 
+                    }
+                },
+                draw: function() {
+                    let ctx = mge.game.context
+                    ctx.font = "48px serif"
+                    ctx.fillText("Click to start, press s to stop", 10, 100)
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>
