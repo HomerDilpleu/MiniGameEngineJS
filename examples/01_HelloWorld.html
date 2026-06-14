@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Hello World</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {},
+                draw: function() {
+                    // Draw "HELLO WORLD" in the game canvas
+                    let ctx = mge.game.context
+                    ctx.font = "48px serif"
+                    ctx.fillText("HELLO WORLD", 10, 50)
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>

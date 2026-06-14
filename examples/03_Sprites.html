@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Sprites</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // SPRITE EXAMPLE
+            //////////////////////////
+            // Create a sprite object
+            let sprite = mge.game.createSprite()
+            // Set its properties
+            sprite.width = 10
+            sprite.height = 10
+            sprite.x = 20
+            sprite.y = 20
+            // Create its "draw function" (mandatory)
+            sprite.drawFunction = function (ctx) {
+                ctx.fillStyle='blue'
+                ctx.fillRect(0,0,10,10)
+            }
+           // Create a specific update method
+            sprite.update = function () {
+                this.x += 0.5
+                this.y += 0.5
+            }
+            //////////////////////////
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    // Update the sprite
+                    sprite.update()
+                },
+                draw: function() {
+                    // Draw the sprite
+                    sprite.draw()
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>

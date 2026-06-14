@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Timer</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // TIMER EXAMPLE
+            //////////////////////////
+            // Create a timer of 3 seconds that will loop
+            let timer = mge.game.createTimer(3000,'L') 
+            // Start the timer
+            timer.start()
+
+            //////////////////////////
+            // SPRITE
+            //////////////////////////
+            // Create a sprite object
+            let sprite = mge.game.createSprite()
+            // Set its properties
+            sprite.width = 100
+            sprite.height = 100
+            sprite.x = 100
+            sprite.y = 100
+            // Create its "draw function" (mandatory)
+            sprite.drawFunction = function (ctx) {
+                ctx.fillStyle='blue'
+                ctx.fillRect(0,0,this.width,this.height)
+            }
+           // Create a specific update method using the timer
+            sprite.update = function () {
+                // Modify the size of the sprite depending on the timer
+                if (timer.progress < 0.5) {
+                    this.width+=0.5
+                    this.height+=0.5
+                } else {
+                    this.width-=0.5
+                    this.height-=0.5
+                }
+            }
+            //////////////////////////
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    // Update the timer
+                    timer.update()
+                    // Update the sprite
+                    sprite.update()
+                },
+                draw: function() {
+                    // Draw the sprite
+                    sprite.draw()
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>

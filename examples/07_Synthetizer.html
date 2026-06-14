@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Synthetizer</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // SYNTHETIZER EXAMPLE
+            //////////////////////////
+            // Create a basic synthetizer with 2 oscillators
+            let osc1 = {
+                _type: 'sawtooth', 
+                _volumeADSR:{a:0.005,d:0.15,s:0.3,r:0.1,minValue:0,maxValue:1},
+                _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
+                _reverb:{_delay:0.1,_feedbackLevel:0.5}
+            }   
+            let osc2 = {
+                _type: 'sawtooth', 
+                _volumeADSR:{a:0.005,d:0.15,s:0.3,r:0.1,minValue:0,maxValue:0.7},
+                _detuneADSR:{a:0,d:0,s:1,r:0,minValue:3,maxValue:3},
+                _filterADSR:{a:0.02,d:0.12,s:0.25,r:0.08,minValue:1800,maxValue:2200},
+                _reverb:{_delay:0.1,_feedbackLevel:0.5}
+            }    
+            let synth = mge.game.createSynthetizer([osc1,osc2])
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    // If the mouse is clicked, play the synth
+                    if (mge.mouse.isClicked) {
+                        synth.play(440,mge.audio.currentAudioTime,1,1)
+                    }
+                },
+                draw: function() {
+                    let ctx = mge.game.context
+                    ctx.font = "48px serif"
+                    ctx.fillText("Click to ear the sound", 10, 100)
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>

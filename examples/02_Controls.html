@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Controles</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {},
+                draw: function() {
+                    // Get game canvas context
+                    let ctx = mge.game.context
+                    ctx.font = "48px serif"
+                    /////////////////////////////////
+                    // KEYBOARD CONTROL EXAMPLE
+                    /////////////////////////////////
+                    if (mge.keyboard.isKeyPressed('a')) {
+                        ctx.fillText("'a' is pressed", 10, 50)
+                    } else {
+                        ctx.fillText("'a' is NOT pressed", 10, 50)
+                    }
+                    /////////////////////////////////
+                    // MOUSE CONTROL EXAMPLE
+                    /////////////////////////////////
+                    if (mge.mouse.isDown ) {
+                        ctx.fillText("The mouse button is down", 10, 100)
+                    } else {
+                        ctx.fillText("The mouse button is NOT down", 10, 100)
+                    }
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>

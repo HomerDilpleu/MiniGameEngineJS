@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Sprites and mouse interaction</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.3.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // SPRITE EXAMPLE
+            //////////////////////////
+            // Create a sprite object
+            let sprite = mge.game.createSprite()
+            // Set its properties
+            sprite.width = 100
+            sprite.height = 100
+            sprite.x = 100
+            sprite.y = 100
+            // Create its "draw function" (mandatory)
+            sprite.drawFunction = function (ctx) {
+                ctx.fillStyle='blue'
+                ctx.fillRect(0,0,100,100)
+                // Check if the sprite is selected
+                if (this.isSelected) {
+                    ctx.fillStyle='pink'
+                    ctx.fillRect(0,0,100,100)
+                }
+            }
+           // Create a specific update method
+            sprite.update = function () {
+                // Drag the sprite
+                if (this.isDragged) {
+                    this.x = mge.mouse.x
+                    this.y = mge.mouse.y
+                }
+            }
+            //////////////////////////
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    // Update the sprite
+                    sprite.update()
+                },
+                draw: function() {
+                    let ctx = mge.game.context
+                    // Draw text instructions
+                    ctx.fillStyle = 'Black'
+                    ctx.font = "16px serif"
+                    ctx.fillText("Drag, select and unselect the sprite", 10, 30)
+                    // Draw the sprite
+                    sprite.draw()
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>
