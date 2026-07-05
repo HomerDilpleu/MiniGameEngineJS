@@ -138,7 +138,6 @@ sceneMain.update = function() {
   spriteDebug.text.push('- mge.game.width: ' + mge.game.width)
   spriteDebug.text.push('- mge.game.height: ' + mge.game.height)
   spriteDebug.text.push('- mge.game.fps: ' + Math.round(mge.game.fps))
-  spriteDebug.text.push('- mge.game.context: ' + mge.game.context)
   spriteDebug.text.push('')
   spriteDebug.text.push('KEYBOARD')
   spriteDebug.text.push('- mge.keyboard.keysPressed : ' + mge.keyboard.keysPressed)
@@ -186,6 +185,29 @@ sceneMain.update = function() {
   }
   spriteDebug.text.push('Delete all clones: -')
   if(mge.keyboard.isKeyPressed('-')) {spriteTest.cloneDeleteAll()}
+  spriteDebug.text.push('')
+  spriteDebug.text.push('CAMERA')
+  spriteDebug.text.push('Zoom in: i / Zoom out: o')
+  if(mge.keyboard.isKeyPressed('i')) {
+    mge.camera.zoom+=0.05
+  }
+  if(mge.keyboard.isKeyPressed('o')) {
+    mge.camera.zoom-=0.05
+  }
+  spriteDebug.text.push('Move left: l / Move right: r')
+  if(mge.keyboard.isKeyPressed('l')) {
+    mge.camera.x-=5
+  }
+  if(mge.keyboard.isKeyPressed('r')) {
+    mge.camera.x+=5
+  }
+  spriteDebug.text.push('Move up: u / Move down: d')
+  if(mge.keyboard.isKeyPressed('u')) {
+    mge.camera.y-=5
+  }
+  if(mge.keyboard.isKeyPressed('d')) {
+    mge.camera.y+=5
+  }
   spriteDebug.text.push('')
   spriteDebug.text.push('AUDIO')
   spriteDebug.text.push('Play sine sound: s + click')
