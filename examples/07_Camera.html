@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Camera</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.4.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // CAMERA
+            //////////////////////////
+            // Set the camera postion and zoom
+            mge.camera.x = 0
+            mge.camera.y = 0
+            mge.camera.zoom = 1   
+
+            //////////////////////////
+            // SPRITES
+            //////////////////////////
+            // Create a static sprite, scrollFactor = 0
+            let sprite1 = mge.game.createSprite()
+            sprite1.x = 300
+            sprite1.y = 700
+            sprite1.scrollFactor = 0
+            sprite1.drawFunction = function (ctx) {
+                ctx.strokeStyle='blue'
+                ctx.strokeRect(-200,-500,500,300)
+            }
+            // Create a slow scrolling sprite, scrollFactor = 0.2
+            let sprite2 = mge.game.createSprite()
+            sprite2.x = -250
+            sprite2.y = -100
+            sprite2.scrollFactor = 0.2
+            sprite2.drawFunction = function (ctx) {
+                ctx.fillStyle='pink'
+                ctx.fillRect(0,0,1100,800)
+            }
+            // Create a faster scrolling sprite, scrollFactor = 0.8
+            let sprite3 = mge.game.createSprite()
+            sprite3.x = -325
+            sprite3.y = -150
+            sprite3.scrollFactor = 0.8
+            sprite3.drawFunction = function (ctx) {
+                ctx.fillStyle='red'
+                ctx.fillRect(0,0,100,50)
+            }
+            
+           
+            // Create the main scene
+            let mainScene = {
+                start:function() {},
+                update:function() {
+                    if (mge.camera.x < 200) {
+                        mge.camera.x+=1
+                    } else {
+                        if (mge.camera.y < 100) {
+                        mge.camera.y+=1
+                        } else {
+                            if (mge.camera.zoom < 1.5) {
+                                mge.camera.zoom += 0.005
+                            }
+                        }
+                    }
+
+
+
+                    // Move camera
+                   // mge.camera.x+=2
+                    //mge.camera.y+=0.1
+                    //mge.camera.zoom+=0.001
+                },
+                draw: function() {
+                    // Draw the sprites
+                    sprite1.draw()
+                    sprite2.draw()
+                    sprite3.draw()
+               }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>
