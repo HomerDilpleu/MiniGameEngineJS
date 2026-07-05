@@ -3,6 +3,7 @@ import buildUtils
 
 inputFiles = ['../src/mge.js',\
               '../src/audio.js',\
+              '../src/camera.js',\
               '../src/synthetizer.js',\
               '../src/sequencer.js',\
               '../src/game.js',\
@@ -31,6 +32,8 @@ inputFiles = ['../src/mge.js',\
               '../src/loop/_create.js',\
               '../src/loop/_start.js',\
               '../src/loop/_tick.js',\
+              '../src/camera/_create.js',\
+              '../src/camera/_worldToScreen.js',\
               '../src/mouse/_onClick.js',\
               '../src/mouse/_onDown.js',\
               '../src/mouse/_onMove.js',\
@@ -243,6 +246,13 @@ stringsToUglify+=['_timer','_createTimer']
 stringsToUglify+=['_start','_progress','_startTimestamp']
 # _update.js
 stringsToUglify+=['_update']
+#########################################
+# Camera
+#########################################
+# _create.js
+stringsToUglify+=['_camera','_zoom']
+# _worldToScreen.js
+stringsToUglify+=['_worldToScreen','_sprite','_result','_scrollFactor','_scaleXScreen','_scaleYScreen','_xScreen','_yScreen']
 #########################################
 # Other
 #########################################
