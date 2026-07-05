@@ -11,5 +11,6 @@ const mge = {
     _keyboard:{},
     _sequencer:{},
     _synth:{},
-    _timer:{}
+    _timer:{},
+    _camera:{}
 }

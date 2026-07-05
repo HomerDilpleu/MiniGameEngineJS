@@ -40,9 +40,10 @@ spriteDebug.drawFunction = function (ctx) {
 spriteTest = mge.game.createSprite()
 spriteTest.width=100
 spriteTest.height=100
-spriteTest.x=500
-spriteTest.y=100
+spriteTest.x=-200
+spriteTest.y=-100
 spriteTest.drawBoundaries=true
+spriteTest.scrollFactor = 0.5
 //
 spriteTest.drawFunction = function (ctx) {
   if (mge.mouse.isPressed && this.isTouched) {
@@ -137,7 +138,6 @@ sceneMain.update = function() {
   spriteDebug.text.push('- mge.game.width: ' + mge.game.width)
   spriteDebug.text.push('- mge.game.height: ' + mge.game.height)
   spriteDebug.text.push('- mge.game.fps: ' + Math.round(mge.game.fps))
-  spriteDebug.text.push('- mge.game.clonesNb: ' + mge.game.clonesNb)
   spriteDebug.text.push('- mge.game.context: ' + mge.game.context)
   spriteDebug.text.push('')
   spriteDebug.text.push('KEYBOARD')
