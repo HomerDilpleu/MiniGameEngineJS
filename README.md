@@ -6,13 +6,14 @@ The objective was to create a **minimalist and easy to use** engine for simple 2
 * Scenes management
 * Mouse and keyboard controls
 * Sprites, sprites clones and collisions
+* Camera
 * Synthetizer
 * Audio sequencer
 
 **Since 2023, this project has largely being improved and is still maintained actively.**
 
 The main objectives remain the same:
-* Limited size: around 4Kb minified and zip
+* Limited size: less than 5Kb minified and zip
 * Easyness: MGE API is very simple to use and largely documented
 * Minimalist but complete: provides all the basic features of a generic 2D engine
 
@@ -143,6 +144,21 @@ Get mouse coordinates
 ```
 let mouseX = mge.mouse.x
 let mouseY = mge.mouse.y
+```
+
+## Camera
+MGE provides a camera for scrolling and zooming.
+
+Each sprite has a *scrollFactor* property to simulate the parallax.
+A sprite with a *scrollFactor* set to 0 will not be affected by the camera; it is mainly used for UI components.
+
+A sprite with a low *scrollFactor* will move slower than a sprite with a higher *scrollFactor". 
+
+The camera has 3 properties used for location and zoom:
+```
+mge.camera.x = 100 
+mge.camera.y = 200
+mge.camero.zoom = 0.8
 ```
 
 ## Synthetizer
@@ -398,12 +414,20 @@ let mySprite = mge.game.createSprite()
 * isClicked (read only): boolean that indicates if the sprite is clicked
 * isDragged (read only): boolean that indicates if the sprite is currently being dragged
 * isSelected (read only): boolean that indicates if the sprite is currently selected
+* scrollFactor: defines how the sprite is affected by the camera. A scrollFactor set to 0 means the camera will not affect the sprite (used mainly for UI components)
 #### -> Methods
 * draw(): draw the sprite on the canvas (manages resizing, positionning, bundaries drawing and visibility)
 * cloneCreate(): creates a clone of the sprite
 * cloneDelete(): deletes itself as clone
 * cloneDeleteAll(): deletes all the clones of the sprite
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
+
+-------------------------
+### Camera 
+#### -> Properties
+* x: x posiiton of the camera
+* y: y position of the camera
+* zoom: zoom factor (default 1)
 
 -------------------------
 ### Synthetizer 

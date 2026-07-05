@@ -26,3 +26,7 @@ Remove the obsolete audio.play_sound function
 # V1.3.0
 May 2026
 Add the timer module
+
+# V1.4.0
+July 2026
+Add camera
