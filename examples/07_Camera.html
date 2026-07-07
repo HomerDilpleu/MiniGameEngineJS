@@ -28,35 +28,63 @@
             //////////////////////////
             // SPRITES
             //////////////////////////
-            // Create a static sprite, scrollFactor = 0
-            let sprite1 = mge.game.createSprite()
-            sprite1.x = 300
-            sprite1.y = 700
-            sprite1.scrollFactor = 0
-            sprite1.drawFunction = function (ctx) {
-                ctx.strokeStyle='blue'
-                ctx.strokeRect(-200,-500,500,300)
+            // Background sprite (mountains) - scrollFactor 0.2
+            let mountainSprite = mge.game.createSprite()
+            mountainSprite.width = 1600
+            mountainSprite.height = 1200
+            mountainSprite.scaleX = 3
+            mountainSprite.scaleY = 3
+            mountainSprite.x = 0
+            mountainSprite.y = 0
+            mountainSprite.scrollFactor = 0.2
+            mountainSprite.path2D = new Path2D("M-13 333L123 205L314 421L463 408L548 440L982 218L1046 310L1254 145L1379 411L1455 394L1599 526L1602 1197L4 1200")
+            mountainSprite.drawFunction = function (ctx) {
+                ctx.fillStyle='LightGray'
+                ctx.fill(mountainSprite.path2D)
             }
-            // Create a slow scrolling sprite, scrollFactor = 0.2
-            let sprite2 = mge.game.createSprite()
-            sprite2.x = -250
-            sprite2.y = -100
-            sprite2.scrollFactor = 0.2
-            sprite2.drawFunction = function (ctx) {
-                ctx.fillStyle='pink'
-                ctx.fillRect(0,0,1100,800)
+            // Midground sprite (hills) - scrollFactor 0.5
+            let hillSprite = mge.game.createSprite()
+            hillSprite.width = 1600
+            hillSprite.height = 1200
+            hillSprite.scaleX = 2
+            hillSprite.scaleY = 2
+            hillSprite.x = 0
+            hillSprite.y = 200
+            hillSprite.scrollFactor = 0.5
+            hillSprite.path2D = new Path2D("M0 417Q323 237 370 331Q492 477 670 438Q964 343 1080 503Q1283 673 1418 434Q1512 205 1600 288L1607 1203L-2 1197")
+            hillSprite.drawFunction = function (ctx) {
+                ctx.fillStyle='DarkGray'
+                ctx.fill(hillSprite.path2D)
             }
-            // Create a faster scrolling sprite, scrollFactor = 0.8
-            let sprite3 = mge.game.createSprite()
-            sprite3.x = -325
-            sprite3.y = -150
-            sprite3.scrollFactor = 0.8
-            sprite3.drawFunction = function (ctx) {
-                ctx.fillStyle='red'
-                ctx.fillRect(0,0,100,50)
+            // Foreground sprite (platform) - scrollFactor 1
+            let platformSprite = mge.game.createSprite()
+            platformSprite.width = 200
+            platformSprite.height = 50
+            platformSprite.scaleX = 1
+            platformSprite.scaleY = 1
+            platformSprite.x = 0
+            platformSprite.y = -100
+            platformSprite.scrollFactor = 1
+            platformSprite.drawFunction = function (ctx) {
+                ctx.fillStyle='DimGray'
+                ctx.fillRect(0,0,200,50)
             }
-            
-           
+            // Static sprite (target) - scrollFactor 0
+            let targetSprite = mge.game.createSprite()
+            targetSprite.width = 800
+            targetSprite.height = 600
+            targetSprite.scaleX = 1
+            targetSprite.scaleY = 1
+            targetSprite.x = 400
+            targetSprite.y = 320
+            targetSprite.scrollFactor = 0
+            targetSprite.path2D = new Path2D("M115 276A120 120 0 0 1 681 280A35 35 0 0 1 115 275M397 -6L398 559M116 275L680 277")
+            targetSprite.drawFunction = function (ctx) {
+                ctx.lineWidth = 2
+                ctx.strokeStyle='Red'
+                ctx.stroke(targetSprite.path2D)
+            }
+                       
             // Create the main scene
             let mainScene = {
                 start:function() {},
@@ -72,19 +100,13 @@
                             }
                         }
                     }
-
-
-
-                    // Move camera
-                   // mge.camera.x+=2
-                    //mge.camera.y+=0.1
-                    //mge.camera.zoom+=0.001
                 },
                 draw: function() {
                     // Draw the sprites
-                    sprite1.draw()
-                    sprite2.draw()
-                    sprite3.draw()
+                    mountainSprite.draw()
+                    hillSprite.draw()
+                    platformSprite.draw()
+                    targetSprite.draw()
                }
             }
             // Start the game using the basic scene
