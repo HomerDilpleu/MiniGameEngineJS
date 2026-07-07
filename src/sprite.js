@@ -79,6 +79,13 @@ mge._sprite = {
     get isSelected() {
         return this._isSelected() 
     },  
+    // scrollFactor
+    get scrollFactor() {
+        return this._scrollFactor
+    },
+    set scrollFactor(_value) {
+        this._scrollFactor = _value
+    },
         
     ////////////////
     // Methods

@@ -1,6 +1,6 @@
 const mge = {
     TITLE:'Mini Game Engine',
-    VERSION:'V1.2.0',
+    VERSION:'V1.4.0',
 
     // Libraries
     _audio:{},
@@ -11,7 +11,8 @@ const mge = {
     _keyboard:{},
     _sequencer:{},
     _synth:{},
-    _timer:{}
+    _timer:{},
+    _camera:{}
 }
 ///////////////////////////
 // Audio API
@@ -43,6 +44,34 @@ mge.audio = {
 
 
 
+// API on sprite objects    
+mge.camera = {
+    ////////////////
+    // Properties
+    ////////////////
+    // x
+    get x() {
+        return mge._camera._x
+    },
+    set x(_value) {
+        mge._camera._x = _value
+    },
+    // y
+    get y() {
+        return mge._camera._y
+    },
+    set y(_value) {
+        mge._camera._y = _value
+    },
+    // zoom
+    get zoom() {
+        return mge._camera._zoom
+    },
+    set zoom(_value) {
+        mge._camera._zoom = _value
+        if(mge._camera._zoom < 0 ) {mge._camera._zoom = 0}
+    }
+}
 ///////////////////////////
 // Synthetizer API
 ///////////////////////////
@@ -99,21 +128,19 @@ mge.game = {
         return mge._canvas._renderCanvas.width
     },
     set width(_value) {
-        mge._canvas._renderCanvas.width = _value
+        mge._canvas._renderCanvas.width = _value,
+        mge._camera._x = _value / 2
     },
     get height() {
         return mge._canvas._renderCanvas.height
     },
     set height(_value) {
         mge._canvas._renderCanvas.height = _value
+        mge._camera._y = _value / 2
     },
     // Frames per second
     get fps() {
         return mge._loop._fps
-    },
-    // Number of clones
-    get clonesNb() {
-        return mge._game._getClonesNb()
     },
     // Access to the game canvas
     get context() {
@@ -266,6 +293,13 @@ mge._sprite = {
     get isSelected() {
         return this._isSelected() 
     },  
+    // scrollFactor
+    get scrollFactor() {
+        return this._scrollFactor
+    },
+    set scrollFactor(_value) {
+        this._scrollFactor = _value
+    },
         
     ////////////////
     // Methods
@@ -458,6 +492,9 @@ mge._game._create = function (_width, _height) {
     // Create the audio sequencer
     mge._sequencer._create()
 
+    // Create the camera
+    mge._camera._create()
+
     // Create the game loop
     mge._loop._create()
 
@@ -492,24 +529,6 @@ mge._game._createTimer = function (_duration, _mode) {
     return _timer
 }
 ///////////////////////////
-// Get the number of clones
-// in the game
-///////////////////////////
-
-mge._game._getClonesNb = function () {
-    
-    // Initialize the number of clones to 0
-    let _clonesNb = 0
-
-    // For each sprite, count the number of clones and sum it
-    this._spritesList.forEach(_sprite => {
-        _clonesNb += _sprite._clonesList.length
-    })
-
-    // Return the result
-    return _clonesNb
-
-}///////////////////////////
 // Change the scene
 ///////////////////////////
 
@@ -691,6 +710,39 @@ mge._loop._tick = function () {
 }
 
 ///////////////////////////
+// Create the camera
+///////////////////////////
+mge._camera._create = function() {
+
+    // Properties
+    this._x = mge.game.width/2
+    this._y = mge.game.height/2
+    this._zoom = 1
+
+}
+
+///////////////////////////
+// World to screen
+///////////////////////////
+mge._camera._worldToScreen = function(_sprite) {
+    let _result = {}
+    // If scroll factor =0, the sprite remains un changed
+    if (_sprite._scrollFactor == 0) {
+        _result._scaleXScreen = _sprite._scaleX
+        _result._scaleYScreen = _sprite._scaleY
+        _result._xScreen = _sprite._x
+        _result._yScreen = _sprite._y
+    } else {
+        // Else it position and size is imapcted
+        _result._xScreen = (_sprite._x - (mge._camera._x - mge.game.width/2) * _sprite._scrollFactor) * mge._camera._zoom + mge.game.width/2
+        _result._yScreen = (_sprite._y - (mge._camera._y - mge.game.height/2) * _sprite._scrollFactor) * mge._camera._zoom + mge.game.height/2
+        _result._scaleXScreen = _sprite._scaleX * mge._camera._zoom * _sprite._scrollFactor
+        _result._scaleYScreen = _sprite._scaleY * mge._camera._zoom * _sprite._scrollFactor
+    }
+   return _result
+}
+
+///////////////////////////
 // Event handler onmouseclick
 ///////////////////////////
 mge._mouse._onClick = function(e) {
@@ -840,6 +892,8 @@ mge._sprite._create = function(_ctx) {
     this._clonesList = []
     this._cloneIsValid = false
 
+    // Properties fpr Camera
+    this._scrollFactor = 0
 
 }///////////////////////////
 // Draw the sprite
@@ -852,12 +906,15 @@ mge._sprite._draw = function() {
         // Shortcuts
         let _ctx = this._ctx
 
+        // Get screen values
+        let _s = mge._camera._worldToScreen(this)
+
         // Save context
         _ctx.save()
 
         // Apply transformations
-        _ctx.translate(this._x - this._width * this._scaleX / 2, this._y - this._height * this._scaleY / 2)
-        _ctx.scale(this._scaleX, this._scaleY)
+        _ctx.translate(_s._xScreen - this._width * _s._scaleXScreen / 2, _s._yScreen - this._height * _s._scaleYScreen / 2)
+        _ctx.scale(_s._scaleXScreen, _s._scaleYScreen)
 
         // Draw
         this._drawFunction(_ctx)   
@@ -932,12 +989,15 @@ mge._sprite._isSelected = function() {
 ///////////////////////////
 mge._sprite._isTouched = function() {
 
+    // Get screen values
+    let _s = mge._camera._worldToScreen(this)
+
     // Calculate sprite min and max coordinates
     // based in its width and height
-    let _xMaxSprite = this._x + (this._width / 2) * this._scaleX
-    let _xMinSprite = this._x - (this._width / 2) * this._scaleX
-    let _yMaxSprite = this._y + (this._height / 2) * this._scaleY
-    let _yMinSprite = this._y - (this._height / 2) * this._scaleY
+    let _xMaxSprite = _s._xScreen + (this._width / 2) * _s._scaleXScreen
+    let _xMinSprite = _s._xScreen - (this._width / 2) * _s._scaleXScreen
+    let _yMaxSprite = _s._yScreen + (this._height / 2) * _s._scaleYScreen
+    let _yMinSprite = _s._yScreen - (this._height / 2) * _s._scaleYScreen
 
     // Check if inside
     if (mge._mouse._x >= _xMinSprite && mge._mouse._x <= _xMaxSprite && mge._mouse._y >= _yMinSprite && mge._mouse._y <= _yMaxSprite) {
@@ -946,7 +1006,6 @@ mge._sprite._isTouched = function() {
         return false
     }
 }
-
 ///////////////////////////
 // Clean the list of clones
 // (deletes items for which

@@ -23,6 +23,9 @@ mge._game._create = function (_width, _height) {
     // Create the audio sequencer
     mge._sequencer._create()
 
+    // Create the camera
+    mge._camera._create()
+
     // Create the game loop
     mge._loop._create()
 

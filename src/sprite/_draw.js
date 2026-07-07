@@ -9,12 +9,15 @@ mge._sprite._draw = function() {
         // Shortcuts
         let _ctx = this._ctx
 
+        // Get screen values
+        let _s = mge._camera._worldToScreen(this)
+
         // Save context
         _ctx.save()
 
         // Apply transformations
-        _ctx.translate(this._x - this._width * this._scaleX / 2, this._y - this._height * this._scaleY / 2)
-        _ctx.scale(this._scaleX, this._scaleY)
+        _ctx.translate(_s._xScreen - this._width * _s._scaleXScreen / 2, _s._yScreen - this._height * _s._scaleYScreen / 2)
+        _ctx.scale(_s._scaleXScreen, _s._scaleYScreen)
 
         // Draw
         this._drawFunction(_ctx)   

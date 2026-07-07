@@ -23,5 +23,7 @@ mge._sprite._create = function(_ctx) {
     this._clonesList = []
     this._cloneIsValid = false
 
+    // Properties fpr Camera
+    this._scrollFactor = 0
 
 }

@@ -11,21 +11,19 @@ mge.game = {
         return mge._canvas._renderCanvas.width
     },
     set width(_value) {
-        mge._canvas._renderCanvas.width = _value
+        mge._canvas._renderCanvas.width = _value,
+        mge._camera._x = _value / 2
     },
     get height() {
         return mge._canvas._renderCanvas.height
     },
     set height(_value) {
         mge._canvas._renderCanvas.height = _value
+        mge._camera._y = _value / 2
     },
     // Frames per second
     get fps() {
         return mge._loop._fps
-    },
-    // Number of clones
-    get clonesNb() {
-        return mge._game._getClonesNb()
     },
     // Access to the game canvas
     get context() {

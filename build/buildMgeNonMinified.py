@@ -3,6 +3,7 @@ import buildUtils
 
 inputFiles = ['../src/mge.js',\
               '../src/audio.js',\
+              '../src/camera.js',\
               '../src/synthetizer.js',\
               '../src/sequencer.js',\
               '../src/game.js',\
@@ -31,6 +32,8 @@ inputFiles = ['../src/mge.js',\
               '../src/loop/_create.js',\
               '../src/loop/_start.js',\
               '../src/loop/_tick.js',\
+              '../src/camera/_create.js',\
+              '../src/camera/_worldToScreen.js',\
               '../src/mouse/_onClick.js',\
               '../src/mouse/_onDown.js',\
               '../src/mouse/_onMove.js',\
