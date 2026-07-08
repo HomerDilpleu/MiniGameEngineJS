@@ -1,6 +1,6 @@
 const mge = {
     TITLE:'Mini Game Engine',
-    VERSION:'V1.4.0',
+    VERSION:'V1.5.0',
 
     // Libraries
     _audio:{},
@@ -318,6 +318,12 @@ mge._sprite = {
     },
     cloneExecuteForEach : function(_method) {
         return this._cloneExecuteForEach(_method)
+    },
+    isColliding : function(_spriteToCheck) {
+        return this._isColliding(_spriteToCheck)
+    },
+    listCollisionsWithClones : function(_sprite) {
+        return this._listCollisionsWithClones(_sprite)
     }
 }
 // API on timer objects    
@@ -983,7 +989,30 @@ mge._sprite._isSelected = function() {
     // Return dragging state
     return this._selectState
 }
-///////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Check if the sprite is colliding with another sprite.
+// The collision detection is based on width and height (box collision)
+// Only sprites with the same scrollFactor (wich can be seen as a representation of z axis) can collide
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+mge._sprite._isColliding = function(_spriteToCheck) {
+
+    if (_spriteToCheck._scrollFactor != this._scrollFactor) {
+        return false
+    } else {
+        // Calculate min distance between sprites without collision
+        let _minXDistance = (this._width / 2) * this._scaleX + (_spriteToCheck._width / 2) * _spriteToCheck._scaleX
+        let _minYDistance = (this._height / 2) * this._scaleY + (_spriteToCheck._height / 2) * _spriteToCheck._scaleY
+        // Calculate real distance between the 2 sprites
+        let _realXDistance = Math.abs(this._x - _spriteToCheck._x)
+        let _realYDistance = Math.abs(this._y - _spriteToCheck._y)
+        // Check collision
+    if (_realXDistance < _minXDistance && _realYDistance < _minYDistance) {
+            return true
+        } else {
+            return false
+        }
+    }
+}///////////////////////////
 // Check if the sprite is
 // touch for given x and y
 ///////////////////////////
@@ -1076,7 +1105,25 @@ mge._sprite._cloneExecuteForEach = function(_method) {
 
 }
 
-///////////////////////////
+/////////////////////////////////////////////////////////////////////
+// Check if the sprite is collinding with clones of another srpite.
+// Returns the list of clones colliding with him
+/////////////////////////////////////////////////////////////////////
+mge._sprite._listCollisionsWithClones = function(_spriteToCheck) {
+
+    // Create an empty array to store the touched clones
+    let _touchedClones = []
+
+    // Add in this array the clones that are touched
+    _spriteToCheck._clonesList.forEach(_clone => {
+        if (this._isColliding(_clone)) {
+            _touchedClones.push(_clone)
+        }
+    })
+
+    // Return the list of clones touhced by the sprite
+    return _touchedClones
+}///////////////////////////
 // Create a standard osc
 ///////////////////////////
 mge._synth._standardOsc = {
