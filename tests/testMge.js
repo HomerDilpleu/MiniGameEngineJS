@@ -67,6 +67,38 @@ spriteTest.drawFunction = function (ctx) {
 }
 
 //////////////////////////
+// COLLISION SPRITE
+//////////////////////////
+spriteCollision = mge.game.createSprite()
+spriteCollision.width=20
+spriteCollision.height=20
+spriteCollision.isVisible = false
+spriteCollision.drawBoundaries=true
+spriteCollision.scrollFactor = 0.5
+spriteCollision.drawFunction = function (ctx) {
+  ctx.fillStyle = 'blue'
+  ctx.fillRect(0,0,20,20)
+}
+spriteCollision.initClone = function () {
+  let clone = this.cloneCreate()
+  clone.isVisible = true
+  clone.x = Math.random() * mge.game.width
+  clone.y = -300
+}
+spriteCollision.update = function () {
+  // Move
+  this.y+=5
+  // Get list of spriteTest clones that collide
+  let lstSpriteTestCollides =  this.listCollisionsWithClones (spriteTest)
+  // If at least 1 collision: delete current clone
+  if (lstSpriteTestCollides.length>0) {this.cloneDelete()}
+  // Delete the spriteTest that collide
+  lstSpriteTestCollides.forEach((clone)=>clone.cloneDelete())
+  // Delete clone if far out of screen
+  if (this.y > 1000) {this.cloneDelete()}
+}
+
+//////////////////////////
 // SYNTHETIZER
 //////////////////////////
 synthSine = mge.game.createSynthetizer([{_type: 'sine'}])
@@ -245,6 +277,14 @@ sceneMain.update = function() {
   if(mge.keyboard.isKeyPressed('b') & mge.mouse.isClicked) {
     loopTimer.start()
   }
+  //////////////////////
+  // Collisions
+  //////////////////////
+  // Create collision sprite clone
+  if(loopTimer.progress < 0.05) {
+    spriteCollision.initClone()
+  }
+  spriteCollision.cloneExecuteForEach('update')
 
 }
 sceneMain.draw = function() {
@@ -254,6 +294,7 @@ sceneMain.draw = function() {
   simpleTimer.update()
   loopTimer.update()
   spriteTest.cloneExecuteForEach('draw')
+  spriteCollision.cloneExecuteForEach('draw')
 }
 
 
