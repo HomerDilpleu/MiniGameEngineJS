@@ -122,6 +122,21 @@ mySprite.cloneDeleteAll()
 Other interesting features are:
 * the capacity to execute, for each clone, a given function:     mySprite.cloneExecuteForEach('functionToExecute')
 
+## Collisions
+Two sprite methods can be used to detect collisions.
+
+One is used to check if 2 sprites are colling.
+```
+mySprite.isColliding (otherSprite)
+// Returns true if the 2 sprites are colling
+```
+
+The second is used to get the list of clones (of the other sprite) that are colliding.
+```
+mySprite.listCollisionsWithClones (otherSprite)
+// Returns an array with the clones of "otherSprite" that are colliding with "mySprite"
+```
+
 ## User input
 Keyboard and mouse events can easily be handled.
 
@@ -421,6 +436,8 @@ let mySprite = mge.game.createSprite()
 * cloneDelete(): deletes itself as clone
 * cloneDeleteAll(): deletes all the clones of the sprite
 * cloneExecuteForEach(_method): execute the spcified _method for all the clones of the sprite
+* isColliding(_spriteToCheck): returns true if the 2 sprites are collinding, else returns false
+* listCollisionsWithClones(_sprite): returns an array containing the clones of "_sprite" that are colling
 
 -------------------------
 ### Camera 
