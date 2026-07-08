@@ -104,5 +104,11 @@ mge._sprite = {
     },
     cloneExecuteForEach : function(_method) {
         return this._cloneExecuteForEach(_method)
+    },
+    isColliding : function(_spriteToCheck) {
+        return this._isColliding(_spriteToCheck)
+    },
+    listCollisionsWithClones : function(_sprite) {
+        return this._listCollisionsWithClones(_sprite)
     }
 }
