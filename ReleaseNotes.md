@@ -30,3 +30,7 @@ Add the timer module
 # V1.4.0
 July 2026
 Add camera
+
+# V1.5.0
+July 2026
+Add collision functions
