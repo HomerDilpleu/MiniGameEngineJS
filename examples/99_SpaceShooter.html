@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MGE example: Space shooter</title>
+    </head>
+
+    <!-- These body properties aim at centering the game canvas in the screen-->
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+        <!-- IMPORT MGE LIBRARY-->
+        <script src="mge_V1.5.0.js"></script>
+
+        <!-- GAME-->
+        <script>
+            // Set the game properties
+            mge.game.width = 800
+            mge.game.height = 600
+
+            //////////////////////////
+            // SHIP
+            //////////////////////////
+            let ship = mge.game.createSprite()
+            // Set its properties
+            ship.width = 50
+            ship.height = 50
+            ship.x = 400
+            ship.y = 500
+            // Create a timer for bullt shooting
+            ship.bulletTimer = mge.game.createTimer(300,'')
+            // Create its "draw function" (mandatory)
+            ship.drawFunction = function (ctx) {
+                ctx.fillStyle='blue'
+                ctx.fillRect(0,0,50,50)
+            }
+           // Create a specific update method
+            ship.update = function () {
+                    // Shoot
+                    this.bulletTimer.update()
+                    if (mge.keyboard.isKeyPressed(' ')&& this.bulletTimer.progress == 1) {
+                        bullet.initClone()
+                        this.bulletTimer.start()
+                    }
+                    // Move
+                    if (mge.keyboard.isKeyPressed('ArrowRight')) {this.x+=5}
+                    if (mge.keyboard.isKeyPressed('ArrowLeft')) {this.x-=5}
+                    if (mge.keyboard.isKeyPressed('ArrowUp')) {this.y-=5}
+                    if (mge.keyboard.isKeyPressed('ArrowDown')) {this.y+=5}
+                    if (this.x > 750) {this.x=750}
+                    if (this.x < 50) {this.x=50}
+                    if (this.y > 550) {this.y=550}
+                    if (this.y < 450) {this.y=450}
+
+            }
+
+            //////////////////////////
+            // TIMER TO CREATE ENEMIES
+            //////////////////////////
+            // Create a timer to create enemies
+            let timer = mge.game.createTimer(1000,'L') 
+            // Start the timer
+            timer.start()
+
+            //////////////////////////
+            // ENEMY
+            //////////////////////////
+            let enemy = mge.game.createSprite()
+            // Set its properties
+            enemy.width = 50
+            enemy.height = 50
+            enemy.isVisible = false
+            // Create its "draw function" (mandatory)
+            enemy.drawFunction = function (ctx) {
+                ctx.fillStyle='red'
+                ctx.fillRect(0,0,50,50)
+            }
+           // Create a specific update method
+            enemy.update = function () {
+                // Move down
+                this.y += 1
+                // Destroy if out of screen
+                if (this.y > 1000) {this.cloneDelete()}
+
+            }
+            // Clone initialisation
+            enemy.initClone = function () {
+                let clone = this.cloneCreate()
+                clone.isVisible = true
+                clone.x = Math.random() * mge.game.width
+                clone.y = 100
+            }
+
+            //////////////////////////
+            // BULLET
+            //////////////////////////
+            let bullet = mge.game.createSprite()
+            // Set its properties
+            bullet.width = 5
+            bullet.height = 5
+            bullet.isVisible = false
+            // Create its "draw function" (mandatory)
+            bullet.drawFunction = function (ctx) {
+                ctx.fillStyle='blue'
+                ctx.fillRect(0,0,5,5)
+            }
+           // Create a specific update method
+            bullet.update = function () {
+                // Move up
+                this.y -= 5
+                // Destroy if out of screen
+                if (this.y < -500) {this.cloneDelete()}
+                ///////////////////////////////////////////
+                // Manage collision
+                ///////////////////////////////////////////
+                // Get list of enemy clones that collide
+                let lstEnemiesColliding =  this.listCollisionsWithClones (enemy)
+                // If at least 1 collision: delete current clone
+                if (lstEnemiesColliding.length>0) {this.cloneDelete()}
+                // Delete the enemies that collide
+                lstEnemiesColliding.forEach((clone)=>clone.cloneDelete())
+                ///////////////////////////////////////////
+            }
+            // Clone initialisation
+            bullet.initClone = function () {
+                let clone = this.cloneCreate()
+                clone.isVisible = true
+                // Locate the clone at the x mouse position and a 500 y
+                clone.x = ship.x
+                clone.y = 500
+            }
+
+            // Create the main scene
+            let mainScene = {
+                start:function() {
+                },
+                update:function() {
+                    // Increase timer and create enemies 
+                    timer.update()
+                    if (timer.progress < 0.03) {enemy.initClone()}
+                    // Call update of each sprite
+                    enemy.cloneExecuteForEach('update')
+                    bullet.cloneExecuteForEach('update')
+                    ship.update()
+                },
+                draw: function() {
+                    // Draw canvas background
+                    let ctx = mge.game.context
+                    ctx.fillStyle = 'LightGray'
+                    ctx.fillRect(0,0,mge.game.width, mge.game.height)
+                    // Draw text instructions
+                    ctx.fillStyle = 'Black'
+                    ctx.font = "16px serif"
+                    ctx.fillText("Click to shoot", 10, 50)
+                    // Draw each sprite
+                    enemy.cloneExecuteForEach('draw')
+                    bullet.cloneExecuteForEach('draw')
+                    ship.draw()
+                }
+            }
+            // Start the game using the basic scene
+            mge.game.start(mainScene)
+
+        </script>
+    </body>
+</html>
