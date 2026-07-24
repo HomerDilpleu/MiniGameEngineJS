@@ -7,7 +7,7 @@
     </head>
 
     <!-- These body properties aim at centering the game canvas in the screen-->
-    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh"> 
+    <body style="min-height: 100%;display: flex;align-items: center;justify-content: center;height: 100vh;overflow: hidden"> 
         <!-- IMPORT MGE LIBRARY-->
         <script src="mge_V1.5.0.js"></script>
 
@@ -26,6 +26,7 @@
             ship.height = 50
             ship.x = 400
             ship.y = 500
+            ship.scrollFactor = 0.9
             // Create a timer for bullt shooting
             ship.bulletTimer = mge.game.createTimer(300,'')
             // Create its "draw function" (mandatory)
@@ -50,6 +51,9 @@
                     if (this.x < 50) {this.x=50}
                     if (this.y > 550) {this.y=550}
                     if (this.y < 450) {this.y=450}
+                    // Update camera position
+                    mge.camera.x = this.x+400
+                    mge.camera.y = this.y+100
 
             }
 
@@ -69,6 +73,7 @@
             enemy.width = 50
             enemy.height = 50
             enemy.isVisible = false
+            enemy.scrollFactor = 0.9
             // Create its "draw function" (mandatory)
             enemy.drawFunction = function (ctx) {
                 ctx.fillStyle='red'
@@ -98,6 +103,7 @@
             bullet.width = 5
             bullet.height = 5
             bullet.isVisible = false
+            bullet.scrollFactor = 0.9
             // Create its "draw function" (mandatory)
             bullet.drawFunction = function (ctx) {
                 ctx.fillStyle='blue'
@@ -126,7 +132,7 @@
                 clone.isVisible = true
                 // Locate the clone at the x mouse position and a 500 y
                 clone.x = ship.x
-                clone.y = 500
+                clone.y = ship.y
             }
 
             // Create the main scene
@@ -150,7 +156,7 @@
                     // Draw text instructions
                     ctx.fillStyle = 'Black'
                     ctx.font = "16px serif"
-                    ctx.fillText("Click to shoot", 10, 50)
+                    ctx.fillText("Space to shoot", 10, 50)
                     // Draw each sprite
                     enemy.cloneExecuteForEach('draw')
                     bullet.cloneExecuteForEach('draw')
